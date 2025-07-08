@@ -86,6 +86,25 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 6. **Start/Stop Automation**  
    Press **F5** to toggle the automation running state. The status text on the GUI indicates whether the tool is **Running** or **Suspended**.
 
+7. **(Advanced) Dumping Logs**  
+   To enable debug logging and access the log dumping feature:
+
+   1. Open the `config.py` file in the project directory.
+   2. Set the `enable_logging` variable to `True`:
+
+      ```python
+      enable_logging = True
+      ```
+
+   Once enabled:
+
+   * A **DEBUG: Dump Logs** button will appear in the **top-left corner** of the GUI.
+   * The **top-right corner** will show a status message indicating how many logs are currently stored in memory.
+   * Clicking the dump button writes the buffered logs into a `.txt` file in the **current working directory**.
+
+> [!NOTE]
+> Logs are collected in memory during execution and only written to disk when the dump button is pressed.
+
 ---
 
 ## Stopping Logic: Condition Hierarchy

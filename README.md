@@ -9,6 +9,42 @@
 
 Pip Reroller is a Python-based tool designed to automate the rerolling process by detecting object ranks (SS, S, A, etc) on the screen, clicking specified buttons, and stopping when your chosen quality conditions are met. It uses OpenCV for image processing, tkinter for the GUI, and the `ahk` library to simulate mouse clicks via AutoHotkey.
 
+
+## Requirements
+
+* Python 3.x
+* [AutoHotkey](https://www.autohotkey.com/) (must be installed and on your system PATH)
+* Python packages listed in `requirements.txt`
+
+---
+
+## Setup Instructions
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/AlinaWan/pip-reroller.git
+   cd pip-reroller
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   > **Note:** If you encounter an error related to `AutoHotkey.exe` not being found on your system `PATH`, try installing the binary extras with:
+   >
+   > ```bash
+   > pip install "ahk[binary]"
+   > ```
+
+3. **Run the application**
+
+   ```bash
+   python -m main
+   ```
+
 ---
 
 ## Usage
@@ -108,41 +144,6 @@ Suppose:
 * **Minimum SS** = 0
 
 > Will stop when at least 3 ranks are S or higher, even if SS is not present.
-
----
-
-## Requirements
-
-* Python 3.x
-* [AutoHotkey](https://www.autohotkey.com/) (must be installed and on your system PATH)
-* Python packages listed in `requirements.txt`
-
----
-
-## Setup Instructions
-
-1. Clone the repository or download the source code.
-```bash
-git clone https://github.com/AlinaWan/pip-reroller.git
-cd pip-reroller
-```
-
-2. Install dependencies with:
-
-```bash
-pip install -r requirements.txt
-```
-
- - If AutoHotkey.exe is not found on your PATH, you can likely resolve this error simply by installing the binary extra with the following command:
-
-```bash
-pip install "ahk[binary]"
-```
-
-3. Run the script:
-```bash
-python -m main
-```
 
 ---
 

@@ -1,5 +1,10 @@
 # Pip Reroller v1
 
+[![License][shield-license]][link-license]
+[![GitHub][shield-github]][link-github]
+[![Git][shield-git]][link-git]
+[![Python][shield-python]][link-python]
+
 ## Overview
 
 Pip Reroller is a Python-based tool designed to automate the rerolling process by detecting object ranks (SS, S, A, etc) on the screen, clicking specified buttons, and stopping when your chosen quality conditions are met. It uses OpenCV for image processing, tkinter for the GUI, and the `ahk` library to simulate mouse clicks via AutoHotkey.
@@ -158,3 +163,42 @@ This script is licensed under the [MIT License](LICENSE.txt).
 ## Credits
 
 Some logic for **selection area handling** and **bounding box preview** was borrowed and adapted from [iamnotbobby](https://github.com/iamnotbobby), also under the MIT License.
+
+<!-- Badge Variables -->
+[shield-license]: https://img.shields.io/github/license/AlinaWan/pip-reroller
+[link-license]: LICENSE
+
+[shield-github]: https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white
+[link-github]: https://github.com/
+
+[shield-git]: https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff
+[link-git]: https://git-scm.com/
+
+<!---
+[shield-ghactions]: https://img.shields.io/badge/GitHub_Actions-2088FF?logo=github-actions&logoColor=white
+[link-ghactions]: https://docs.github.com/en/actions
+
+[shield-json-validate]: https://img.shields.io/github/actions/workflow/status/AlinaWan/kc-dig-tool-configs/validate_jsons.yml?label=JSON%20Validity
+[link-json-validate]: https://github.com/AlinaWan/kc-dig-tool-configs/actions/workflows/validate_jsons.yml
+
+[shield-pattern-suite-ci]: https://img.shields.io/github/actions/workflow/status/AlinaWan/kc-dig-tool-configs/render_patterns.yml?label=Pattern%20Suite%20CI
+[link-pattern-suite-ci]: https://github.com/AlinaWan/kc-dig-tool-configs/actions/workflows/render_patterns.yml
+
+[shield-readme-ci]: https://img.shields.io/github/actions/workflow/status/AlinaWan/kc-dig-tool-configs/shovel_readme_update.yml?label=README%20CI
+[link-readme-ci]: https://github.com/AlinaWan/kc-dig-tool-configs/actions/workflows/shovel_readme_update.yml
+
+[shield-md]: https://img.shields.io/badge/Markdown-%23000000.svg?logo=markdown&logoColor=white
+[link-md]: https://www.markdownguide.org/basic-syntax/
+
+[shield-json]: https://img.shields.io/badge/JSON-000?logo=json&logoColor=fff
+[link-json]: https://www.json.org/json-en.html
+-->
+
+[shield-python]: https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff
+[link-python]: https://www.python.org/
+
+<!--
+[shield-autohotkey]: https://img.shields.io/badge/AutoHotkey-green?logo=autohotkey&logoColor=white
+[link-autohotkey]: https://www.autohotkey.com/
+-->
+

@@ -3,18 +3,10 @@ name: Build and Release PipReroller
 on:
   workflow_dispatch:
     inputs:
-      output_filename:
-        description: 'Output exe filename'
-        required: true
-        default: 'PipReroller.exe'
       tag_name:
         description: 'Git tag to create/release'
         required: true
         default: 'v1.0.0'
-      release_name:
-        description: 'Release title'
-        required: true
-        default: 'PipReroller Release'
       prerelease:
         description: 'Is this a prerelease?'
         required: true
@@ -24,6 +16,10 @@ on:
 jobs:
   build_and_release:
     runs-on: windows-latest
+
+    env:
+      OUTPUT_NAME: PipReroller${{ github.event.inputs.tag_name }}.exe
+      RELEASE_NAME: PipReroller Release ${{ github.event.inputs.tag_name }}
 
     steps:
     - name: Checkout code
@@ -42,31 +38,46 @@ jobs:
 
     - name: Build executable with Nuitka
       run: |
-        nuitka main.pyw --standalone --onefile --windows-console-mode=disable --enable-plugin=tk-inter --enable-plugin=pylint-warnings --include-package=ahk --include-package=jinja2 --include-package=markupsafe --include-package=cv2 --include-package=pynput --include-package=win32gui --include-package=win32ui --include-package=win32con --include-package=six --windows-icon-from-ico=assets/favicon.ico --output-filename=${{ github.event.inputs.output_filename }} --output-dir=build --assume-yes-for-downloads
+        nuitka main.pyw --standalone --onefile --windows-console-mode=disable `
+          --enable-plugin=tk-inter `
+          --enable-plugin=pylint-warnings `
+          --include-package=ahk `
+          --include-package=jinja2 `
+          --include-package=markupsafe `
+          --include-package=cv2 `
+          --include-package=pynput `
+          --include-package=win32gui `
+          --include-package=win32ui `
+          --include-package=win32con `
+          --include-package=six `
+          --windows-icon-from-ico=assets/favicon.ico `
+          --output-filename="${{ env.OUTPUT_NAME }}" `
+          --output-dir=build `
+          --assume-yes-for-downloads
 
     - name: Compute SHA256 checksum
       run: |
-        certutil -hashfile build\${{ github.event.inputs.output_filename }} SHA256 > build\${{ github.event.inputs.output_filename }}.sha256.txt
+        certutil -hashfile "build\${{ env.OUTPUT_NAME }}" SHA256 > "build\${{ env.OUTPUT_NAME }}.sha256.txt"
 
     - name: Create or update GitHub release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ github.event.inputs.tag_name }}
-        name: ${{ github.event.inputs.release_name }}
+        name: ${{ env.RELEASE_NAME }}
         prerelease: ${{ github.event.inputs.prerelease }}
 
     - name: Upload exe to release
       uses: softprops/action-gh-release@v1
       with:
-        files: build/${{ github.event.inputs.output_filename }}
+        files: build/${{ env.OUTPUT_NAME }}
 
     - name: Upload checksum to release
       uses: softprops/action-gh-release@v1
       with:
-        files: build/${{ github.event.inputs.output_filename }}.sha256.txt
+        files: build/${{ env.OUTPUT_NAME }}.sha256.txt
 
     - name: Output info
       run: |
-        echo "Executable URL: https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag_name }}/${{ github.event.inputs.output_filename }}"
+        echo "Executable URL: https://github.com/${{ github.repository }}/releases/download/${{ github.event.inputs.tag_name }}/${{ env.OUTPUT_NAME }}"
         echo "Build logs: $GITHUB_SERVER_URL/${{ github.repository }}/actions/runs/${{ github.run_id }}"

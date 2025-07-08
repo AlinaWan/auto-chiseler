@@ -14,58 +14,58 @@ body:
   - type: input
     id: description
     attributes:
-      label: Bug Description
-      placeholder: Describe the bug or issue you encountered in detail
+      label: "Bug Description"
+      placeholder: "Describe the bug or issue you encountered in detail"
 
   - type: input
     id: steps
     attributes:
-      label: Steps to Reproduce
-      placeholder: List the steps to reproduce the bug
+      label: "Steps to Reproduce"
+      placeholder: "List the steps to reproduce the bug"
 
   - type: input
     id: expected
     attributes:
-      label: Expected Behavior
-      placeholder: What you expected to happen
+      label: "Expected Behavior"
+      placeholder: "What you expected to happen"
 
   - type: input
     id: actual
     attributes:
-      label: Actual Behavior
-      placeholder: What actually happened
+      label: "Actual Behavior"
+      placeholder: "What actually happened"
 
   - type: input
     id: os_specs
     attributes:
-      label: Operating System and Specs
-      description: Please include your OS version and relevant hardware specs (CPU, GPU, RAM)
-      placeholder: e.g. Windows 10 21H2, Intel i7-9700K, 16GB RAM, NVIDIA RTX 3080
+      label: "Operating System and Specs"
+      description: "Please include your OS version and relevant hardware specs (CPU, GPU, RAM)"
+      placeholder: "e.g. Windows 10 21H2, Intel i7-9700K, 16GB RAM, NVIDIA RTX 3080"
 
   - type: input
     id: average_ping
     attributes:
-      label: Average Ping (ms)
-      description: Provide your average network ping while using Pip Reroller, if applicable
-      placeholder: e.g. 45 ms
+      label: "Average Ping (ms)"
+      description: "Provide your average network ping while using Pip Reroller, if applicable"
+      placeholder: "e.g. 45 ms"
 
   - type: input
     id: monitor_refresh_rate
     attributes:
-      label: Monitor Refresh Rate (Hz)
-      description: What is your monitor's refresh rate?
-      placeholder: e.g. 60 Hz, 144 Hz
+      label: "Monitor Refresh Rate (Hz)"
+      description: "What is your monitor's refresh rate?"
+      placeholder: "e.g. 60 Hz, 144 Hz"
 
   - type: input
     id: fps
     attributes:
-      label: Average FPS (Frames Per Second)
-      description: What FPS do you typically get when running Pip Reroller?
-      placeholder: e.g. 60 FPS, 120 FPS
+      label: "Average FPS (Frames Per Second)"
+      description: "What FPS do you typically get when running Pip Reroller?"
+      placeholder: "e.g. 60 FPS, 120 FPS"
 
   - type: textarea
     id: additional_info
     attributes:
-      label: Additional Information
-      description: Anything else that might help us debug the issue: logs, screenshots, error messages, etc.
-      placeholder: 
+      label: "Additional Information"
+      description: "Anything else that might help us debug the issue: logs, screenshots, error messages, etc."
+      placeholder: "Optional"

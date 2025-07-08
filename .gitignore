@@ -6,6 +6,9 @@ __pycache__/
 # Python virtual environment
 venv/
 
+# Nuitka build output
+build/
+
 # Visual Studio
 .vs/
 *.vspscc

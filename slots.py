@@ -1,6 +1,10 @@
 ﻿# -*- coding: utf-8 -*-
 """
 slots.py
+
+Set enable_slots_socket to True in the config.py module
+to allow processor.py to forward detected objects over IPC port
+54171, then run this file by itself
 """
 import tkinter as tk
 import socket

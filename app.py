@@ -1119,7 +1119,11 @@ class PipRerollerApp:
 
         :rtype: None
         """
-        while not self.stop_reroll_event.is_set():
+        while not self.stop_reroll_event.is_set():   
+            # Brief pause before the next iteration, to prevent clicking too fast
+            # and allow the image processor to catch up if needed
+            # Also to prevent the reroller from rerolling if a stop condition is already met
+            time.sleep(0.01) # This is a general loop delay, not a click delay
             # Check if image processor has signaled a stop.
             # We wait with a short timeout to allow responsiveness.
             # If stop_reroll_event is set by ImageProcessor, this will immediately unblock.
@@ -1184,7 +1188,3 @@ class PipRerollerApp:
                 (f", {ss_count} SS" if self.stop_at_ss > 0 else "") +
                 ". Rolling..."
             ))
-            
-            # Brief pause before the next iteration, to prevent clicking too fast
-            # and allow the image processor to catch up if needed
-            time.sleep(0.01) # This is a general loop delay, not a click delay

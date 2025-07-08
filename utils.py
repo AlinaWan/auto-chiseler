@@ -1,8 +1,7 @@
+# -*- coding: utf-8 -*-
 """
 utils.py
 """
-# -*- coding: utf-8 -*-
-
 import os
 import ctypes
 import tkinter as tk

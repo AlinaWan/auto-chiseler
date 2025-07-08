@@ -1,8 +1,7 @@
+﻿# -*- coding: utf-8 -*-
 """
 constants.py
 """
-# -*- coding: utf-8 -*-
-
 # --- Class ranks, order, and their colors (BGR for OpenCV, HEX for Tkinter) ---
 RANKS = [
     ("F",   (182, 171, 165),  "#b6aba5"),
@@ -23,7 +22,7 @@ def bgr_to_rgb_hex(bgr):
     GUI color specifications.
 
     :param tuple[int, int, int] bgr: A tuple representing a BGR color, with each
-        component in the range 0�255.
+        component in the range 0–255.
     :returns: A string representing the color in ``#rrggbb`` RGB hex format.
     :rtype: str
     :raises ValueError: If the input is not a tuple of three integers.

@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+__version__ = "1.0.0"
+__author__ = "Riri"
+__license__ = "MIT"
+
 """
 Some detection and selection logic adapted from iamnotbobby <https://github.com/iamnotbobby> (MIT licensed).
 This script is licensed under the MIT License.
@@ -25,10 +30,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-# -*- coding: utf-8 -*-
-__version__ = "1.0.0"
-
 from tkinter import Tk
+
 from utils import set_dpi_awareness
 from app import PipRerollerApp
 

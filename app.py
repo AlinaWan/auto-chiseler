@@ -1,8 +1,7 @@
+# -*- coding: utf-8 -*-
 """
 app.py
 """
-# -*- coding: utf-8 -*-
-
 import threading
 import time
 import tkinter as tk
@@ -13,6 +12,7 @@ import cv2
 import numpy as np
 
 from capture import ScreenCapture
+from config import enable_logging
 from constants import RANKS, RANK_ORDER, RANK_TK_HEX
 from utils import Tooltip
 from processor import ImageProcessor
@@ -89,9 +89,6 @@ class PipRerollerApp:
     :ivar status_color: Color hex code for status label.
     :vartype status_color: str
 
-    :ivar enable_logging: Flag to enable or disable event logging.
-    :vartype enable_logging: bool
-
     :ivar log_buffer: Buffer holding log entries before dumping to file.
     :vartype log_buffer: list
 
@@ -164,7 +161,6 @@ class PipRerollerApp:
         self.status_color = "#ff5555"
 
         # [DEBUG] Enable/disable logging
-        self.enable_logging = False  # Set to True to enable logging
         self.log_buffer = []
         self.log_button = None
         self.last_detected_objs = [] # Prevent attribute errors if the reroll loop runs before detections
@@ -352,7 +348,7 @@ class PipRerollerApp:
         # Ensure threads are cleanly stopped on app close
         self.root.protocol("WM_DELETE_WINDOW", self._on_closing)
 
-        if self.enable_logging:
+        if enable_logging:
             def log_event(self, objects, rank_counts, settings, decision):
                 """
                 Logs a detection event with details about detected objects, counts, settings, and decisions.
@@ -1134,7 +1130,7 @@ class PipRerollerApp:
             min_rank_idx = RANK_ORDER[self.min_quality]
             detected_objs = getattr(self, "last_detected_objs", [])
             filtered_objs = [obj for obj in detected_objs if RANK_ORDER[obj["rank"]] >= min_rank_idx]
-            if self.enable_logging and detected_objs:
+            if enable_logging and detected_objs:
                 self.log_event(
                     detected_objs,
                     self.image_processor_thread.get_current_rank_counts(),

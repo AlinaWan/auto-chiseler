@@ -1,12 +1,13 @@
+# -*- coding: utf-8 -*-
 """
 processor.py
 """
-# -*- coding: utf-8 -*-
-
 import threading
 import time
 import cv2
+
 from capture import ScreenCapture
+from config import enable_logging
 from constants import RANKS, RANK_ORDER
 
 class ImageProcessor(threading.Thread):
@@ -112,7 +113,7 @@ class ImageProcessor(threading.Thread):
                 # If conditions are met AND the main loop is currently running, signal it to stop
                 if should_stop and self.app.running:
                     # Only log if logging is enabled and there is at least one detected object (of any rank)
-                    if getattr(self.app, "enable_logging", False) and detected_objs:
+                    if enable_logging and detected_objs:
                         self.app.log_event(
                             detected_objs,
                             self.current_rank_counts.copy(),

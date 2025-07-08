@@ -134,6 +134,11 @@ If AutoHotkey.exe is not found on your PATH, you can likely resolve this error s
 pip install "ahk[binary]"
 ```
 
+3. Run the script:
+```bash
+python -m main
+```
+
 ---
 
 ## Notes

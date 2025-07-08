@@ -1141,7 +1141,7 @@ class PipRerollerApp:
                         "tolerance": self.tolerance,
                         "object_tolerance": self.object_tolerance,
                         "click_delay_ms": self.click_delay_ms,
-                        "post_click_delay": self.post_click_delay_ms,
+                        "post_reroll_delay": self.post_reroll_delay_ms,
                         "image_poll_delay_ms": self.image_poll_delay_ms,
                         "game_area": self.game_area,
                         "chisel_button_pos": self.chisel_button_pos,

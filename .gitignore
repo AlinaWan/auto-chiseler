@@ -3,6 +3,9 @@ __pycache__/
 *.pyc
 *.pyo
 
+# Python virtual environment
+venv/
+
 # Visual Studio
 .vs/
 *.vspscc

@@ -4,6 +4,8 @@ __author__ = "Riri"
 __license__ = "MIT"
 
 """
+main.pyw
+
 Some detection and selection logic adapted from iamnotbobby <https://github.com/iamnotbobby> (MIT licensed).
 This script is licensed under the MIT License.
 

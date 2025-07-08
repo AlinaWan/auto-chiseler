@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 __author__ = "Riri"
 __license__ = "MIT"
 
@@ -34,8 +34,8 @@ SOFTWARE.
 """
 from tkinter import Tk
 
-from utils import set_dpi_awareness
-from app import PipRerollerApp
+from app.utils import set_dpi_awareness
+from app.app import PipRerollerApp
 
 if __name__ == '__main__':
     # --- IMPORTANT: Call DPI awareness setup BEFORE Tkinter initialization ---

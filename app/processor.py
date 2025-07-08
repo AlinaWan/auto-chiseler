@@ -7,9 +7,9 @@ import time
 
 import cv2
 
-from capture import ScreenCapture
-from config import enable_logging, ENABLE_SLOTS_SOCKET, SLOTS_SOCKET_PORT
-from constants import RANKS, RANK_ORDER
+from app.capture import ScreenCapture
+from app.config import ENABLE_LOGGING, ENABLE_SLOTS_SOCKET, SLOTS_SOCKET_PORT
+from app.constants import RANKS, RANK_ORDER
 
 class ImageProcessor(threading.Thread):
     """
@@ -129,7 +129,7 @@ class ImageProcessor(threading.Thread):
                 # If conditions are met AND the main loop is currently running, signal it to stop
                 if should_stop and self.app.running:
                     # Only log if logging is enabled and there is at least one detected object (of any rank)
-                    if enable_logging and detected_objs:
+                    if ENABLE_LOGGING and detected_objs:
                         self.app.log_event(
                             detected_objs,
                             self.current_rank_counts.copy(),

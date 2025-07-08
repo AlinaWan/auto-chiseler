@@ -12,11 +12,11 @@ from ahk import AHK
 import cv2
 import numpy as np
 
-from capture import ScreenCapture
-from config import enable_logging
-from constants import RANKS, RANK_ORDER, RANK_TK_HEX
-from utils import Tooltip
-from processor import ImageProcessor
+from app.capture import ScreenCapture
+from app.config import ENABLE_LOGGING
+from app.constants import RANKS, RANK_ORDER, RANK_TK_HEX
+from app.utils import Tooltip
+from app.processor import ImageProcessor
 
 class PipRerollerApp:
     """
@@ -349,7 +349,7 @@ class PipRerollerApp:
         # Ensure threads are cleanly stopped on app close
         self.root.protocol("WM_DELETE_WINDOW", self._on_closing)
 
-        if enable_logging:
+        if ENABLE_LOGGING:
             def log_event(self, objects, rank_counts, settings, decision):
                 """
                 Logs a detection event with details about detected objects, counts, settings, and decisions.
@@ -1139,7 +1139,7 @@ class PipRerollerApp:
             min_rank_idx = RANK_ORDER[self.min_quality]
             detected_objs = getattr(self, "last_detected_objs", [])
             filtered_objs = [obj for obj in detected_objs if RANK_ORDER[obj["rank"]] >= min_rank_idx]
-            if enable_logging and detected_objs:
+            if ENABLE_LOGGING and detected_objs:
                 self.log_event(
                     detected_objs,
                     self.image_processor_thread.get_current_rank_counts(),

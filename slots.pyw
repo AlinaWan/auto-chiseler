@@ -12,8 +12,8 @@ import socket
 import threading
 import tkinter as tk
 
-from config import SLOTS_SOCKET_PORT
-from constants import RANK_TK_HEX
+from app.config import SLOTS_SOCKET_PORT
+from app.constants import RANK_TK_HEX
 
 class SlotMachineApp:
     """

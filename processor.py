@@ -4,6 +4,7 @@ processor.py
 """
 import threading
 import time
+
 import cv2
 
 from capture import ScreenCapture

@@ -1,8 +1,8 @@
 ﻿# -*- coding: utf-8 -*-
 """
-slots.py
+slots.pyw
 
-Set enable_slots_socket to True in the config.py module
+Set ENABLE_SLOTS_SOCKET to True in the config.py module
 to allow processor.py to forward detected objects over the
 IPC port defined in config, then run this file
 """

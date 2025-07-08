@@ -7,7 +7,7 @@ import time
 import cv2
 
 from capture import ScreenCapture
-from config import enable_logging, enable_slots_socket
+from config import enable_logging, ENABLE_SLOTS_SOCKET, SLOTS_SOCKET_PORT
 from constants import RANKS, RANK_ORDER
 
 class ImageProcessor(threading.Thread):
@@ -52,9 +52,9 @@ class ImageProcessor(threading.Thread):
         self.ipc_port = None
 
         # IPC (Inter-Process Communication) settings for slots display
-        if enable_slots_socket:
+        if ENABLE_SLOTS_SOCKET:
             ipc_host = "localhost"
-            ipc_port = 54171
+            ipc_port = SLOTS_SOCKET_PORT
             self.ipc_host = ipc_host
             self.ipc_port = ipc_port
 

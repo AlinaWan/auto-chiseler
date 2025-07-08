@@ -3,7 +3,8 @@
 config.py
 """
 # [DEBUG] Enable/disable logging
-enable_logging = False  # Set to True to enable logging
+ENABLE_LOGGING = False  # Set to True to enable logging
 
 # [FUN] Enable/disable object forwarding from processor.py to slots.py
-enable_slots_socket = False # Set to True to enable slots socket functionality (Required to pass objects to slots.py over IPC port 54171)
+ENABLE_SLOTS_SOCKET = False # Set to True to enable slots socket functionality (Required to pass objects to slots.py over IPC)
+SLOTS_SOCKET_PORT = 54171 # Port for the slots socket connection

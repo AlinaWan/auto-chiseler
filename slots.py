@@ -3,8 +3,8 @@
 slots.py
 
 Set enable_slots_socket to True in the config.py module
-to allow processor.py to forward detected objects over IPC port
-54171, then run this file by itself
+to allow processor.py to forward detected objects over the
+IPC port defined in config, then run this file
 """
 import tkinter as tk
 import socket
@@ -12,34 +12,8 @@ import threading
 import json
 import random
 
-RANKS = [
-    ("F",   (182, 171, 165),  "#b6aba5"),
-    ("D",   (243, 177, 149),  "#f3b195"),
-    ("C",   (130, 255, 105),  "#82ff69"),
-    ("B",   (255, 134, 148),  "#ff8694"),
-    ("A",   (66, 201, 255),   "#42c9ff"),
-    ("S",   (102, 56, 255),   "#6638ff"),
-    ("SS",  (174, 130, 255),  "#ae82ff"),
-]
-
-def bgr_to_rgb_hex(bgr):
-    """
-    Converts a BGR color tuple to a hexadecimal RGB string.
-
-    This function takes a color in BGR (Blue, Green, Red) format and returns
-    the equivalent RGB hex string (e.g., ``#rrggbb``) commonly used in web and
-    GUI color specifications.
-
-    :param tuple[int, int, int] bgr: A tuple representing a BGR color, with each
-        component in the range 0–255.
-    :returns: A string representing the color in ``#rrggbb`` RGB hex format.
-    :rtype: str
-    :raises ValueError: If the input is not a tuple of three integers.
-    """
-    b, g, r = bgr
-    return f'#{r:02x}{g:02x}{b:02x}'
-
-RANK_TK_HEX = {rank: bgr_to_rgb_hex(bgr) for rank, bgr, _ in RANKS}
+from config import SLOTS_SOCKET_PORT
+from constants import RANK_TK_HEX
 
 class SlotMachineApp:
     """
@@ -234,21 +208,24 @@ class SlotMachineApp:
 
         :rtype: None
         """
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.bind(("localhost", 54171))
-            s.listen(1)
-            print("Slot Machine Display: Listening on port 54171")
-            while True:
-                conn, _ = s.accept()
-                with conn:
-                    data = conn.recv(1024)
-                    try:
-                        ranks = json.loads(data.decode("utf-8"))
-                        # pad to 4 if less
-                        ranks += [""] * (4 - len(ranks))
-                        self.root.after(0, lambda r=ranks: self.animate_slots(r))
-                    except Exception as e:
-                        print(f"IPC parse error: {e}")
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.bind(("localhost", SLOTS_SOCKET_PORT))
+                s.listen(1)
+                print(f"Slot Machine Display: Listening on port {SLOTS_SOCKET_PORT}")
+                while True:
+                    conn, _ = s.accept()
+                    with conn:
+                        data = conn.recv(1024)
+                        try:
+                            ranks = json.loads(data.decode("utf-8"))
+                            ranks += [""] * (4 - len(ranks))
+                            self.root.after(0, lambda r=ranks: self.animate_slots(r))
+                        except Exception as e:
+                            print(f"IPC parse error: {e}")
+        except OSError as e:
+            print(f"[ERROR] Could not bind to port {SLOTS_SOCKET_PORT}: {e}")
+            self.root.after(0, lambda: self.show_error_popup(e))
 
     def animate_slots(self, final_ranks):
         """

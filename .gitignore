@@ -1,0 +1,20 @@
+# Python cache directories
+__pycache__/
+*.pyc
+*.pyo
+
+# Visual Studio
+.vs/
+*.vspscc
+*.user
+*.userosscache
+*.suo
+*.vssscc
+*.dbmdl
+*.sln.docstates
+
+# Ruff
+.ruff_cache/
+
+# Log dumps from Pip Reroller
+**/pip_reroller_log_*.txt

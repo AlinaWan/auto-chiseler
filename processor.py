@@ -1,0 +1,175 @@
+"""
+processor.py
+"""
+# -*- coding: utf-8 -*-
+
+import threading
+import time
+import cv2
+from capture import ScreenCapture
+from constants import RANKS, RANK_ORDER
+
+class ImageProcessor(threading.Thread):
+    """
+    Thread that continuously captures screenshots, detects pips, and signals when reroll conditions are met.
+
+    This class runs as a daemon thread to perform background image processing tasks
+    independently from the main application flow. It captures screen regions, processes
+    them to detect pip counts or ranks, updates shared state safely using threading locks,
+    and can signal the main reroll loop to stop based on detection results.
+
+    :ivar app: Reference to the main application instance, used for interaction and callbacks.
+    :vartype app: object
+
+    :ivar stop_event: Event used to signal this thread to stop execution gracefully.
+    :vartype stop_event: threading.Event
+
+    :ivar current_rank_counts: Dictionary mapping ranks to their current detected counts.
+    :vartype current_rank_counts: dict
+
+    :ivar lock: Lock to synchronize access to shared data like rank counts.
+    :vartype lock: threading.Lock
+
+    :ivar screen_capturer: Instance of the ScreenCapture class used for optimized screenshot capture.
+    :vartype screen_capturer: ScreenCapture
+    """
+    def __init__(self, app_ref):
+        """
+        Initializes the ImageProcessor thread.
+    
+        :param object app_ref: Reference to the main application instance.
+        :rtype: None
+        """
+        super().__init__(daemon=True) # Daemon thread exits when main program exits
+        self.app = app_ref # Reference to the main app instance
+        self.stop_event = threading.Event() # Event to signal this thread to stop
+        self.current_rank_counts = {rank: 0 for rank, _, _ in RANKS}
+        self.lock = threading.Lock() # Lock for safely accessing shared data (rank counts)
+        self.screen_capturer = ScreenCapture() # Instantiate the optimized screen capturer
+
+    def run(self):
+        """
+        Main loop for continuous image capturing and pip detection.
+    
+        This method runs in a dedicated daemon thread and performs the following:
+        - Continuously captures screenshots of the defined game area.
+        - Processes the captured images to detect and classify pips.
+        - Updates shared rank counts with thread-safe locking.
+        - Signals the main reroll loop to stop based on configurable stop conditions.
+        - Updates the GUI asynchronously using Tkinter's `after` method.
+        - Logs events if logging is enabled and conditions are met.
+    
+        The loop respects a polling delay and handles exceptions gracefully
+        by logging errors and preventing tight looping on repeated failures.
+    
+        The thread will stop running when `stop_event` is set or when the stop
+        conditions are satisfied and the main loop is signaled to stop.
+    
+        :rtype: None
+        """
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+        
+        while not self.stop_event.is_set():
+            if self.app.game_area is None:
+                time.sleep(0.1) # Wait if area not set by user
+                continue
+
+            try:
+                # Capture screenshot using the optimized ScreenCapture class
+                frame = self.screen_capturer.capture(bbox=self.app.game_area)
+                if frame is None:
+                    # Handle capture failure (e.g., invalid area, GDI error)
+                    self.app.root.after(0, lambda: self.app.message_var.set("Screenshot capture failed. Retrying..."))
+                    time.sleep(0.1) # Short delay before retrying capture
+                    continue
+
+                # Perform pip detection and classification
+                detected_objs = self.app.detect_and_classify(frame)
+
+                # Update shared rank counts safely for the GUI
+                with self.lock:
+                    new_counts = {rank: 0 for rank, _, _ in RANKS}
+                    for obj in detected_objs:
+                        new_counts[obj['rank']] += 1
+                    self.current_rank_counts = new_counts
+                    
+                # Schedule GUI update on the main thread (Tkinter is not thread-safe)
+                self.app.root.after(0, lambda: self.app.update_rank_counts_gui(detected_objs))
+
+                # Check stop conditions based on detected pips
+                min_rank_idx = RANK_ORDER[self.app.min_quality]
+                filtered_objs = [obj for obj in detected_objs if RANK_ORDER[obj['rank']] >= min_rank_idx]
+                ss_objs = [obj for obj in detected_objs if obj['rank'] == "SS"]
+
+                should_stop = False
+                if self.app.stop_at_ss > 0:
+                    if len(filtered_objs) >= self.app.min_objects and len(ss_objs) >= self.app.stop_at_ss:
+                        should_stop = True
+                else:
+                    if len(filtered_objs) >= self.app.min_objects:
+                        should_stop = True
+
+                # If conditions are met AND the main loop is currently running, signal it to stop
+                if should_stop and self.app.running:
+                    # Only log if logging is enabled and there is at least one detected object (of any rank)
+                    if getattr(self.app, "enable_logging", False) and detected_objs:
+                        self.app.log_event(
+                            detected_objs,
+                            self.current_rank_counts.copy(),
+                            {
+                                "min_quality": self.app.min_quality,
+                                "min_objects": self.app.min_objects,
+                                "stop_at_ss": self.app.stop_at_ss,
+                                "tolerance": self.app.tolerance,
+                                "object_tolerance": self.app.object_tolerance,
+                                "click_delay_ms": self.app.click_delay_ms,
+                                "post_reroll_delay_ms": self.app.post_reroll_delay_ms,
+                                "image_poll_delay_ms": self.app.image_poll_delay_ms,
+                                "game_area": self.app.game_area,
+                                "chisel_button_pos": self.app.chisel_button_pos,
+                                "buy_button_pos": self.app.buy_button_pos,
+                            },
+                            decision="StopConditionMet: Signalling reroll thread to suspend"
+                        )
+                    self.app.root.after(0, lambda: self.app.message_var.set(
+                        f"Min: {self.app.min_quality} x{self.app.min_objects}" +
+                        (f", SS: {self.app.stop_at_ss}" if self.app.stop_at_ss > 0 else "") +
+                        " met. Signalling stop."
+                    ))
+                    self.app.stop_running_async() # Signal the main reroll thread to stop
+                    self.stop_event.set() # Also tell this image processor thread to gracefully stop
+                    break # Exit this thread's loop
+
+                # Small delay to control the image polling rate
+                time.sleep(self.app.image_poll_delay_ms / 1000)
+
+            except Exception as e:
+                # Log errors and prevent tight looping on continuous errors
+                self.app.root.after(0, lambda: self.app.message_var.set(f"ImageProc Error: {e}"))
+                time.sleep(0.5) # Prevent tight loop on error
+
+    def get_current_rank_counts(self):
+        """
+        Retrieve a thread-safe copy of the latest detected rank counts.
+    
+        This method acquires a lock to safely access the shared rank counts dictionary
+        and returns a copy to avoid race conditions.
+    
+        :returns: A copy of the current rank counts mapping ranks to their detected counts.
+        :rtype: dict[str, int]
+        """
+        with self.lock:
+            return self.current_rank_counts.copy()
+
+    def stop(self):
+        """
+        Signals the image processing thread to stop and releases resources.
+    
+        This method sets the internal stop event, which causes the thread's
+        main loop to exit gracefully. It also closes the screen capturer,
+        cleaning up any allocated GDI resources.
+    
+        :rtype: None
+        """
+        self.stop_event.set()
+        self.screen_capturer.close() # Close the screen capturer resources

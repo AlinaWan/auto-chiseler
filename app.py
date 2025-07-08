@@ -1097,8 +1097,12 @@ class PipRerollerApp:
         :param y: The y-coordinate on the screen.
         :type y: int
         """
-        self.ahk.mouse_move(x, y, speed=0) # Instant move
-        self.ahk.click() # Left click down & up
+        self.ahk.mouse_move(x, y, speed=0)  # Instant move
+        # Moving the cursor again when it is inside the client area
+        # makes Roblox consider it inside the game client
+        # Otherwise it might not register the click properly
+        self.ahk.mouse_move(0, -1, relative=True, speed=0)  # Nudge up 1px
+        self.ahk.click()
 
     def reroll_loop(self):
         """

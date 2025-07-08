@@ -1,66 +1,69 @@
 name: "🐞 Bug Report"
-title: "[Bug] "
-labels: bug
+description: "File a bug or issue for Pip Reroller"
+title: "[BUG] <title>"
+labels: ["Bug", "Needs Triage"]
 assignees: []
 
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ## Bug Report
-
-        Please fill out the following information to help us identify and fix the issue.
-
   - type: input
-    id: description
     attributes:
       label: "Bug Description"
-      placeholder: "Describe the bug or issue you encountered in detail"
-
-  - type: input
-    id: steps
-    attributes:
-      label: "Steps to Reproduce"
-      placeholder: "List the steps to reproduce the bug"
-
-  - type: input
-    id: expected
-    attributes:
-      label: "Expected Behavior"
-      placeholder: "What you expected to happen"
-
-  - type: input
-    id: actual
-    attributes:
-      label: "Actual Behavior"
-      placeholder: "What actually happened"
-
-  - type: input
-    id: os_specs
-    attributes:
-      label: "Operating System and Specs"
-      placeholder: "e.g. Windows 10 21H2, Intel i7-9700K, 16GB RAM, NVIDIA RTX 3080"
-
-  - type: input
-    id: average_ping
-    attributes:
-      label: "Average Ping (ms)"
-      placeholder: "e.g. 45 ms"
-
-  - type: input
-    id: monitor_refresh_rate
-    attributes:
-      label: "Monitor Refresh Rate (Hz)"
-      placeholder: "e.g. 60 Hz, 144 Hz"
-
-  - type: input
-    id: fps
-    attributes:
-      label: "Average FPS (Frames Per Second)"
-      placeholder: "e.g. 60 FPS, 120 FPS"
+      description: "Describe the bug or issue you encountered in detail"
+      placeholder: "E.g. The reroller crashes after the 5th roll."
+    validations:
+      required: true
 
   - type: textarea
-    id: additional_info
+    attributes:
+      label: "Steps to Reproduce"
+      description: "List the steps to reproduce the bug"
+      placeholder: |
+        1. Open Pip Reroller
+        2. Select the reroll option
+        3. Wait until the 5th roll
+        4. Observe crash
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: "Expected Behavior"
+      description: "What you expected to happen"
+      placeholder: "Reroller continues without crashing"
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: "Actual Behavior"
+      description: "What actually happened"
+      placeholder: "The app closes unexpectedly."
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: "Environment"
+      description: |
+        Please include relevant specs like:
+        - OS: Windows 10 21H2
+        - CPU/GPU: Intel i7, NVIDIA RTX 3080
+        - Average Ping: 45 ms
+        - Monitor Refresh Rate: 144 Hz
+        - Average FPS: 120
+      placeholder: |
+        - OS:
+        - CPU/GPU:
+        - Average Ping:
+        - Monitor Refresh Rate:
+        - Average FPS:
+    validations:
+      required: true
+
+  - type: textarea
     attributes:
       label: "Additional Information"
-      placeholder: "Optional"
+      description: |
+        Anything else that might help us debug the issue: logs, screenshots, error messages, etc.
+    validations:
+      required: false

@@ -6,11 +6,11 @@ Set enable_slots_socket to True in the config.py module
 to allow processor.py to forward detected objects over the
 IPC port defined in config, then run this file
 """
-import tkinter as tk
-import socket
-import threading
 import json
 import random
+import socket
+import threading
+import tkinter as tk
 
 from config import SLOTS_SOCKET_PORT
 from constants import RANK_TK_HEX

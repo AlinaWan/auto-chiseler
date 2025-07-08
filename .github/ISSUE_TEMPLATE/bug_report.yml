@@ -39,33 +39,28 @@ body:
     id: os_specs
     attributes:
       label: "Operating System and Specs"
-      description: "Please include your OS version and relevant hardware specs (CPU, GPU, RAM)"
       placeholder: "e.g. Windows 10 21H2, Intel i7-9700K, 16GB RAM, NVIDIA RTX 3080"
 
   - type: input
     id: average_ping
     attributes:
       label: "Average Ping (ms)"
-      description: "Provide your average network ping while using Pip Reroller, if applicable"
       placeholder: "e.g. 45 ms"
 
   - type: input
     id: monitor_refresh_rate
     attributes:
       label: "Monitor Refresh Rate (Hz)"
-      description: "What is your monitor's refresh rate?"
       placeholder: "e.g. 60 Hz, 144 Hz"
 
   - type: input
     id: fps
     attributes:
       label: "Average FPS (Frames Per Second)"
-      description: "What FPS do you typically get when running Pip Reroller?"
       placeholder: "e.g. 60 FPS, 120 FPS"
 
   - type: textarea
     id: additional_info
     attributes:
       label: "Additional Information"
-      description: "Anything else that might help us debug the issue: logs, screenshots, error messages, etc."
       placeholder: "Optional"

@@ -205,7 +205,7 @@ class PipRerollerApp:
         frame_reroll_delay.pack(pady=(10, 0))
         post_reroll_delay_label = make_label("Post Reroll Delay (ms):")
         post_reroll_delay_label.pack(in_=frame_reroll_delay, side="left")
-        Tooltip(post_reroll_delay_label, "Delay in milliseconds between rerolls.\nIncrease if the game doesn't return charms fast enough.")
+        Tooltip(post_reroll_delay_label, "Delay in milliseconds between rerolls.\nSetting this value too low might reroll or delete\nthe charm underneath the one you're rerolling.")
         self.post_reroll_delay_entry = Entry(frame_reroll_delay, bg=entry_bg, fg=entry_fg, insertbackground='white', width=6)
         self.post_reroll_delay_entry.pack(side="left", padx=(10, 0))
         self.post_reroll_delay_entry.insert(0, str(self.post_reroll_delay_ms))

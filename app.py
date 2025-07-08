@@ -6,6 +6,7 @@ import threading
 import time
 import tkinter as tk
 from tkinter import Entry, Label, StringVar
+
 from pynput import keyboard
 from ahk import AHK
 import cv2

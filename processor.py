@@ -7,7 +7,7 @@ import time
 import cv2
 
 from capture import ScreenCapture
-from config import enable_logging
+from config import enable_logging, enable_slots_socket
 from constants import RANKS, RANK_ORDER
 
 class ImageProcessor(threading.Thread):
@@ -48,6 +48,13 @@ class ImageProcessor(threading.Thread):
         self.lock = threading.Lock() # Lock for safely accessing shared data (rank counts)
         self.screen_capturer = ScreenCapture() # Instantiate the optimized screen capturer
 
+        # IPC (Inter-Process Communication) settings for slots display
+        if enable_slots_socket:
+            ipc_host = "localhost"
+            ipc_port = 54171
+            self.ipc_host = ipc_host
+            self.ipc_port = ipc_port
+
     def run(self):
         """
         Main loop for continuous image capturing and pip detection.
@@ -86,6 +93,11 @@ class ImageProcessor(threading.Thread):
 
                 # Perform pip detection and classification
                 detected_objs = self.app.detect_and_classify(frame)
+
+                # Send detected ranks to slot display if IPC is enabled
+                if self.ipc_host and self.ipc_port:
+                    rank_list = [obj['rank'] for obj in detected_objs[:4]]
+                    self.send_to_slot_display(rank_list)
 
                 # Update shared rank counts safely for the GUI
                 with self.lock:
@@ -174,3 +186,35 @@ class ImageProcessor(threading.Thread):
         """
         self.stop_event.set()
         self.screen_capturer.close() # Close the screen capturer resources
+
+    def send_to_slot_display(self, ranks):
+        """
+        Send the current detected ranks to the slot machine display application via IPC socket.
+    
+        This method attempts to establish a TCP connection to the configured IPC host and port,
+        then serializes the provided list of rank strings as JSON and sends it over the socket.
+    
+        If IPC host or port are not set (None or falsy), the method returns immediately without sending.
+    
+        Handles `ConnectionRefusedError` silently, which typically means the slot machine
+        display is not running or not listening, so no error is raised in that case.
+    
+        Any other exceptions during socket connection or send are caught and logged to the console.
+    
+        :param ranks: List of rank strings to send to the slot display.
+        :type ranks: list[str]
+        :rtype: None
+        """
+        import socket
+        import json
+        if not self.ipc_host or not self.ipc_port:
+            return  # IPC is disabled
+    
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.connect((self.ipc_host, self.ipc_port))
+                s.sendall(json.dumps(ranks).encode('utf-8'))
+        except ConnectionRefusedError:
+            pass  # Slot machine not running
+        except Exception as e:
+            print(f"IPC send error: {e}")

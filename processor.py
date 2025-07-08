@@ -48,6 +48,9 @@ class ImageProcessor(threading.Thread):
         self.lock = threading.Lock() # Lock for safely accessing shared data (rank counts)
         self.screen_capturer = ScreenCapture() # Instantiate the optimized screen capturer
 
+        self.ipc_host = None
+        self.ipc_port = None
+
         # IPC (Inter-Process Communication) settings for slots display
         if enable_slots_socket:
             ipc_host = "localhost"

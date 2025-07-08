@@ -42,7 +42,7 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 3. **Run the application**
 
    ```bash
-   python -m main
+   python main.pyw
    ```
 
 ---

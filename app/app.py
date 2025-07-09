@@ -348,16 +348,13 @@ class PipRerollerApp:
         # AHK instance (default path to AutoHotkey.exe)
         print("App started")
         try:
-            if getattr(sys, 'frozen', False):
-                # Nuitka: resolve path relative to current file (__file__)
+            if "__compiled__" in globals():
                 base_dir = os.path.dirname(os.path.abspath(__file__))
                 ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
                 print("Resolved AHK path:", ahk_path)
                 print("Exists:", os.path.exists(ahk_path))
-                if not os.path.exists(ahk_path):
-                    raise FileNotFoundError(f"AutoHotkey.exe not found at {ahk_path}")
                 self.ahk = AHK(executable_path=ahk_path)
-                print("AHK initialized using bundled AutoHotkey.exe")
+                print("AHK initialized successfully")
             else:
                 self.ahk = AHK()
                 print("AHK initialized in source mode")

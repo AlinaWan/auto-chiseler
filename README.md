@@ -222,7 +222,7 @@ Having issues? Here are some common problems and how to fix them:
 
 ## License
 
-This script is licensed under the [MIT License](LICENSE.txt).
+Pip Reroller and this repository are licensed under the [MIT License](LICENSE.txt).
 
 > **License Notice for Binary Releases**
 > 

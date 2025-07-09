@@ -224,6 +224,12 @@ Having issues? Here are some common problems and how to fix them:
 
 This script is licensed under the [MIT License](LICENSE.txt).
 
+> **License Notice for Binary Releases**
+> 
+> The executable binaries provided in the [Releases](https://github.com/AlinaWan/pip-reroller/releases) bundle AutoHotkey.exe, which is licensed under the GNU General Public License version 2 (GPLv2).
+> Due to this, **the distributed binaries are required to be licensed under GPLv2**, in compliance with AutoHotkey's licensing terms.
+> The source code itself remains under the MIT License.
+
 ## Credits
 
 Some logic for **selection area handling** and **bounding box preview** was borrowed and adapted from [iamnotbobby](https://github.com/iamnotbobby), also under the MIT License.

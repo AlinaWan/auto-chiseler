@@ -226,9 +226,9 @@ This script is licensed under the [MIT License](LICENSE.txt).
 
 > **License Notice for Binary Releases**
 > 
-> The executable binaries provided in the [Releases](https://github.com/AlinaWan/pip-reroller/releases) bundle AutoHotkey.exe, which is licensed under the GNU General Public License version 2 (GPLv2).
-> Due to this, **the distributed binaries are required to be licensed under GPLv2**, in compliance with AutoHotkey's licensing terms.
-> The source code itself remains under the MIT License.
+> The executable binaries provided in the [Releases](https://github.com/AlinaWan/pip-reroller/releases) bundle AutoHotkey.exe and Python interpreter components, which are licensed under the GNU General Public License version 2 (GPLv2) and Python Software Foundation License version 2 (PSFL-2.0) respectively.
+> Due to this, **the distributed binaries are required to be licensed under GPLv2**, in compliance with GPL's copyleft terms.
+> The source code itself remains under the MIT License and may be reused or modified independently under its terms.
 
 ## Credits
 

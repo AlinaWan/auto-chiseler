@@ -51,6 +51,7 @@ jobs:
           --include-package=win32con `
           --include-package=six `
           --windows-icon-from-ico=assets/favicon.ico `
+          --include-data-file=assets/AutoHotkey.exe=assets/AutoHotkey.exe `
           --output-filename="${{ env.OUTPUT_NAME }}" `
           --output-dir=build `
           --assume-yes-for-downloads

@@ -2,6 +2,8 @@
 """
 app.py
 """
+import os
+import sys
 import threading
 import time
 import tkinter as tk
@@ -344,7 +346,14 @@ class PipRerollerApp:
         self.listener.start()
 
         # AHK instance (default path to AutoHotkey.exe)
-        self.ahk = AHK()
+        if getattr(sys, 'frozen', False):
+            # Running from compiled executable
+            base_dir = os.path.dirname(sys.executable)
+            ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
+            self.ahk = AHK(executable_path=ahk_path)
+        else:
+            # Running from source (assumes ahk[binary] installed or manually handled)
+            self.ahk = AHK()
 
         # Ensure threads are cleanly stopped on app close
         self.root.protocol("WM_DELETE_WINDOW", self._on_closing)

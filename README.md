@@ -1,4 +1,4 @@
-# Pip Reroller v1
+# Pip Reroller
 
 [![License][shield-license]][link-license]
 [![GitHub][shield-github]][link-github]

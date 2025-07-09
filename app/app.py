@@ -11,6 +11,7 @@ from tkinter import Entry, Label, StringVar
 
 from pynput import keyboard
 from ahk import AHK
+from ahk import config as ahk_config # Override default config for pre-compiled exe
 import cv2
 import numpy as np
 
@@ -350,7 +351,10 @@ class PipRerollerApp:
             # Running from compiled executable
             base_dir = sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.dirname(sys.executable)
             ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
+            # Explicitly override config so ahk doesn’t try to guess/download
+            ahk_config.executable_path = ahk_path
             self.ahk = AHK(executable_path=ahk_path)
+            # print("AHK path resolved to:", self.ahk.executable_path)
         else:
             # Running from source (assumes ahk[binary] installed or manually handled)
             self.ahk = AHK()

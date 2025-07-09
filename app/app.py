@@ -348,8 +348,8 @@ class PipRerollerApp:
         # AHK instance (default path to AutoHotkey.exe)
         print("App started")
         try:
-            if getattr(sys, 'frozen', False):
-                base_dir = sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.dirname(sys.executable)
+            if hasattr(sys, "_MEIPASS") or (getattr(sys, "frozen", False) or (os.path.basename(sys.executable).lower().endswith(".exe") and not sys.argv[0].endswith(".py"))):
+                base_dir = getattr(sys, "_MEIPASS", None) or os.path.dirname(sys.executable)
                 ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
                 print("Resolved AHK path:", ahk_path)
                 print("Exists:", os.path.exists(ahk_path))

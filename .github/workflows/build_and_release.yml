@@ -38,11 +38,15 @@ jobs:
 
     - name: Build executable with Nuitka
       run: |
-        nuitka main.pyw --standalone --onefile --windows-console-mode=disable `
+        nuitka main.pyw --standalone --onefile `
           --enable-plugin=tk-inter `
           --enable-plugin=pylint-warnings `
+          --include-module=ahk `
+          --include-module=jinja2 `
           --include-package=ahk `
           --include-package=jinja2 `
+          --include-package-data=ahk `
+          --include-package-data=jinja2 `
           --include-package=markupsafe `
           --include-package=cv2 `
           --include-package=pynput `

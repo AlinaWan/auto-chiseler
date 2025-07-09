@@ -175,11 +175,36 @@ Suppose:
 
 ---
 
+## Troubleshooting
+
+Having issues? Here are some common problems and how to fix them:
+
+* **Wrong stats being detected (e.g. detecting bottom charm's stats):**
+  This usually means your ping is too high. After a reroll, the game takes longer to return the new charm, and the tool may detect the charm below it instead.
+
+* **Charm gets deleted or rerolled unintentionally:**
+  Another ping-related issue. Try increasing the **Post Reroll Delay** in the app settings to give the game more time to refresh the inventory before the next action is taken.
+
+* **Tool clicks the chisel button but doesn’t click the buy button afterward:**
+  Increase the **Click Delay** setting. If the delay is too short, the confirmation dialog may not appear in time for the buy click to register.
+
+* **Nothing is being detected at all:**
+  Increase the **Color Tolerance** slider. The app might be too strict in matching pip rank colors, especially if your screen has unusual brightness or color settings.
+
+* **Wrong ranks being detected or multiple ranks detected as the same:**
+  Decrease the **Color Tolerance**. It’s likely the app is being too lenient and is matching different colors as the same rank.
+
+* **An object is split into multiple bounding boxes:**
+  Increase the **Object Tolerance** (in pixels). This setting controls how close detected pixels must be to be merged into the same object. If it's too low, even parts of the same pip might be counted as separate objects.
+
+* **Automation starts but nothing happens:**
+  Make sure you selected an area and both buttons (Chisel and Buy) before pressing **F5**. The automation won’t do anything without those.
+
+---
+
 ## License
 
 This script is licensed under the [MIT License](LICENSE.txt).
-
----
 
 ## Credits
 

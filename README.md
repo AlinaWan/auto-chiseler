@@ -226,8 +226,9 @@ Pip Reroller and this repository are licensed under the [MIT License](LICENSE.tx
 
 > **License Notice for Binary Releases**
 > 
-> The pre-compiled executable binaries provided in the [Releases](https://github.com/AlinaWan/pip-reroller/releases) bundle AutoHotkey.exe and Python interpreter components, which are licensed under the [GNU General Public License version 2 (GPLv2)](assets/AutoHotkey.exe.LICENSE) and [Python Software Foundation License version 2 (PSFL-2.0)](assets/python.LICENSE) respectively.
-> Due to this, **the distributed binaries are required to be licensed under GPLv2**, in compliance with GPL's copyleft terms.
+> The pre-compiled executable binaries provided in the [Releases](https://github.com/AlinaWan/pip-reroller/releases) bundle AutoHotkey.exe and Python interpreter components, which are licensed under the [GNU General Public License version 2 or later (GPLv2+)](assets/AutoHotkey.exe.LICENSE) and [Python Software Foundation License version 2 (PSFL-2.0)](assets/python.LICENSE) respectively.
+> All pip dependencies are licensed in accordance to their respective [third-party licenses](assets/pip_dependencies.LICENSE).
+> Due to the inclusion of both AutoHotkey.exe (GPLv2 or later) and a pip dependency licensed under the [GNU Lesser General Public License version 3 (LGPLv3)](assets/LGPLv3.LICENSE), any binary distribution is required to be licensed under the **[GNU General Public License version 3 (GPLv3)](assets/GPLv3.LICENSE)**, in compliance with the GPL’s copyleft terms.
 > The source code itself remains under the [MIT License](LICENSE.txt) and may be reused or modified independently under its terms.
 
 ## Credits

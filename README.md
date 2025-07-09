@@ -11,13 +11,6 @@
 
 Pip Reroller is a Python-based tool designed to automate the rerolling process by detecting object ranks (SS, S, A, etc) on the screen, clicking specified buttons, and stopping when your chosen quality conditions are met. It uses OpenCV for image processing, tkinter for the GUI, and the `ahk` library to simulate mouse clicks via AutoHotkey.
 
-
-## Requirements
-
-* Python 3.x
-* [AutoHotkey](https://www.autohotkey.com/) (must be installed and on your system PATH)
-* Python packages listed in `requirements.txt`
-
 ---
 
 ## Setup Instructions
@@ -32,6 +25,13 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 > This issue is a **false positive**. The macro does not contain any malicious code.
 
 ### Option 2. Run from source
+
+
+#### Requirements
+
+* Python 3.x
+* [AutoHotkey](https://www.autohotkey.com/) (must be installed and on your system PATH)
+* Python packages listed in `requirements.txt`
 
 1. **Clone the repository**
 

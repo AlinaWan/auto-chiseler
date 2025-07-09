@@ -11,7 +11,6 @@ from tkinter import Entry, Label, StringVar
 
 from pynput import keyboard
 from ahk import AHK
-from ahk import config as ahk_config # Override default config for pre-compiled exe
 import cv2
 import numpy as np
 
@@ -354,7 +353,6 @@ class PipRerollerApp:
                 ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
                 print("Resolved AHK path:", ahk_path)
                 print("Exists:", os.path.exists(ahk_path))
-                ahk_config.executable_path = ahk_path
                 self.ahk = AHK(executable_path=ahk_path)
                 print("AHK initialized successfully")
             else:

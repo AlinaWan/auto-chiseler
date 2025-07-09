@@ -22,6 +22,17 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 
 ## Setup Instructions
 
+### Option 1. Use the pre-compiled executable
+
+1. Download the latest executable from the [releases page](https://github.com/AlinaWan/pip-reroller/releases/latest).
+2. Run the executable file. The Python and AutoHotkey interpreters are already bundled; no external installations are required.
+
+> [!IMPORTANT]
+> If Windows Defender quarantines or deletes the file, restore it or temporarily turn off real-time protection in your system settings.
+> This issue is a **false positive**. The macro does not contain any malicious code.
+
+### Option 2. Run from source
+
 1. **Clone the repository**
 
    ```bash
@@ -45,6 +56,11 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 
    ```bash
    python main.pyw
+   ```
+
+4. (Optional) If you also want to **compile the executable**, the build command is:
+   ```bash
+   nuitka main.pyw --standalone --onefile --windows-console-mode=disable --enable-plugin=tk-inter --enable-plugin=pylint-warnings --include-package=ahk --include-package=jinja2 --include-package=markupsafe --include-package=cv2 --include-package=pynput --include-package=win32gui --include-package=win32ui --include-package=win32con --include-package=six --windows-icon-from-ico=assets/favicon.ico --include-data-file=assets/AutoHotkey.exe=assets/AutoHotkey.exe --output-filename=PipReroller.exe --output-dir=build --assume-yes-for-downloads
    ```
 
 ---

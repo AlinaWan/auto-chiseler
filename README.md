@@ -60,7 +60,7 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 
 4. (Optional) If you also want to **compile the executable**, the build command is:
    ```bash
-   nuitka main.pyw --standalone --onefile --windows-console-mode=disable --enable-plugin=tk-inter --enable-plugin=pylint-warnings --include-package=ahk --include-package=jinja2 --include-package=markupsafe --include-package=cv2 --include-package=pynput --include-package=win32gui --include-package=win32ui --include-package=win32con --include-package=six --windows-icon-from-ico=assets/favicon.ico --include-data-file=assets/AutoHotkey.exe=assets/AutoHotkey.exe --output-filename=PipReroller.exe --output-dir=build --assume-yes-for-downloads
+   nuitka main.pyw --standalone --onefile --windows-console-mode=disable --enable-plugin=tk-inter --enable-plugin=pylint-warnings --include-module=ahk --include-module=jinja2 --include-package=ahk --include-package=jinja2 --include-package-data=ahk --include-package-data=jinja2 --include-package=markupsafe --include-package=cv2 --include-package=pynput --include-package=win32gui --include-package=win32ui --include-package=win32con --include-package=six --windows-icon-from-ico=assets/favicon.ico --include-data-files=assets/AutoHotkey.exe=assets/AutoHotkey.exe --output-filename=PipReroller.exe --output-dir=build --assume-yes-for-downloads
    ```
 
 ---

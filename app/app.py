@@ -348,18 +348,17 @@ class PipRerollerApp:
         # AHK instance (default path to AutoHotkey.exe)
         print("App started")
         try:
-            if hasattr(sys, "_MEIPASS") and sys._MEIPASS:
-                # Use _MEIPASS folder (the extracted temp folder from the onefile exe)
-                base_dir = sys._MEIPASS
-                ahk_path = os.path.join(base_dir, "assets", "AutoHotkey.exe")
+            if getattr(sys, 'frozen', False):
+                # Nuitka: resolve path relative to current file (__file__)
+                base_dir = os.path.dirname(os.path.abspath(__file__))
+                ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
                 print("Resolved AHK path:", ahk_path)
                 print("Exists:", os.path.exists(ahk_path))
                 if not os.path.exists(ahk_path):
-                    raise FileNotFoundError(f"AutoHotkey.exe not found inside _MEIPASS folder at {ahk_path}")
+                    raise FileNotFoundError(f"AutoHotkey.exe not found at {ahk_path}")
                 self.ahk = AHK(executable_path=ahk_path)
-                print("AHK initialized successfully using _MEIPASS")
+                print("AHK initialized using bundled AutoHotkey.exe")
             else:
-                # Running from source, fallback to normal AHK usage
                 self.ahk = AHK()
                 print("AHK initialized in source mode")
         except Exception as e:

@@ -348,7 +348,7 @@ class PipRerollerApp:
         # AHK instance (default path to AutoHotkey.exe)
         if getattr(sys, 'frozen', False):
             # Running from compiled executable
-            base_dir = os.path.dirname(sys.executable)
+            base_dir = sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.dirname(sys.executable)
             ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
             self.ahk = AHK(executable_path=ahk_path)
         else:

@@ -109,10 +109,10 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
    To enable debug logging and access the log dumping feature:
 
    1. Open the `config.py` file in the project directory.
-   2. Set the `enable_logging` variable to `True`:
+   2. Set the `ENABLE_LOGGING` variable to `True`:
 
       ```python
-      enable_logging = True
+      ENABLE_LOGGING = True
       ```
 
    Once enabled:

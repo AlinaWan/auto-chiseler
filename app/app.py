@@ -348,14 +348,17 @@ class PipRerollerApp:
         # AHK instance (default path to AutoHotkey.exe)
         print("App started")
         try:
+            # Running from compiled executable
+            # Nuitka inserts the __compiled__ global when building
             if "__compiled__" in globals():
                 base_dir = os.path.dirname(os.path.abspath(__file__))
-                ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
+                ahk_path = os.path.abspath(os.path.join(base_dir, '..', 'assets', 'AutoHotkey.exe'))
                 print("Resolved AHK path:", ahk_path)
                 print("Exists:", os.path.exists(ahk_path))
                 self.ahk = AHK(executable_path=ahk_path)
                 print("AHK initialized successfully")
             else:
+                # Running from source (assumes ahk[binary] installed or manually handled)
                 self.ahk = AHK()
                 print("AHK initialized in source mode")
         except Exception as e:

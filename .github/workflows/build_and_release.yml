@@ -55,9 +55,14 @@ jobs:
           --output-dir=build `
           --assume-yes-for-downloads
 
+    - name: List build directory contents (for debugging)
+      run: dir build
+
     - name: Compute SHA256 checksum
+      shell: pwsh
       run: |
-        certutil -hashfile "build\${{ env.OUTPUT_NAME }}" SHA256 > "build\${{ env.OUTPUT_NAME }}.sha256.txt"
+        $hash = (certutil -hashfile "build/${{ env.OUTPUT_NAME }}" SHA256)[1].Trim()
+        "$hash  ${{ env.OUTPUT_NAME }}" | Out-File -Encoding ascii -NoNewline "build/${{ env.OUTPUT_NAME }}.sha256.txt"
 
     - name: Create or update GitHub release
       id: create_release
@@ -70,11 +75,13 @@ jobs:
     - name: Upload exe to release
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: ${{ github.event.inputs.tag_name }}
         files: build/${{ env.OUTPUT_NAME }}
 
     - name: Upload checksum to release
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: ${{ github.event.inputs.tag_name }}
         files: build/${{ env.OUTPUT_NAME }}.sha256.txt
 
     - name: Output info

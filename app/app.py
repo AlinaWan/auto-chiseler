@@ -347,22 +347,21 @@ class PipRerollerApp:
         self.listener.start()
 
         # AHK instance (default path to AutoHotkey.exe)
-        if getattr(sys, 'frozen', False):
-            # Running from compiled executable
-            try:
-                base_dir = sys._MEIPASS
-            except AttributeError:
-                base_dir = os.path.dirname(sys.executable)
-        
-            ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
-            if not os.path.exists(ahk_path):
-                raise RuntimeError(f"Bundled AutoHotkey.exe not found at: {ahk_path}")
-            # Explicitly override config so ahk doesn’t try to guess/download
-            ahk_config.executable_path = ahk_path
-            self.ahk = AHK(executable_path=ahk_path)
-        else:
-            # Running from source (assumes ahk[binary] installed or manually handled)
-            self.ahk = AHK()
+        print("App started")
+        try:
+            if getattr(sys, 'frozen', False):
+                base_dir = sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.dirname(sys.executable)
+                ahk_path = os.path.join(base_dir, 'assets', 'AutoHotkey.exe')
+                print("Resolved AHK path:", ahk_path)
+                print("Exists:", os.path.exists(ahk_path))
+                ahk_config.executable_path = ahk_path
+                self.ahk = AHK(executable_path=ahk_path)
+                print("AHK initialized successfully")
+            else:
+                self.ahk = AHK()
+                print("AHK initialized in source mode")
+        except Exception as e:
+            print("Failed to initialize AHK:", e)
 
         # Ensure threads are cleanly stopped on app close
         self.root.protocol("WM_DELETE_WINDOW", self._on_closing)

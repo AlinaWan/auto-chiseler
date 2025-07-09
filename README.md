@@ -3,6 +3,8 @@
 [![License][shield-license]][link-license]
 [![GitHub][shield-github]][link-github]
 [![Git][shield-git]][link-git]
+[![GitHub Actions][shield-ghactions]][link-ghactions]
+[![Build][shield-build]][link-build]
 [![Python][shield-python]][link-python]
 
 ## Overview
@@ -220,10 +222,13 @@ Some logic for **selection area handling** and **bounding box preview** was borr
 [shield-git]: https://img.shields.io/badge/Git-F05032?logo=git&logoColor=fff
 [link-git]: https://git-scm.com/
 
-<!---
 [shield-ghactions]: https://img.shields.io/badge/GitHub_Actions-2088FF?logo=github-actions&logoColor=white
 [link-ghactions]: https://docs.github.com/en/actions
 
+[shield-build]: https://img.shields.io/github/actions/workflow/status/AlinaWan/pip-reroller/build_and_release.yml
+[link-build]: https://github.com/AlinaWan/pip-reroller/actions/workflows/build_and_release.yml
+
+<!--
 [shield-json-validate]: https://img.shields.io/github/actions/workflow/status/AlinaWan/kc-dig-tool-configs/validate_jsons.yml?label=JSON%20Validity
 [link-json-validate]: https://github.com/AlinaWan/kc-dig-tool-configs/actions/workflows/validate_jsons.yml
 

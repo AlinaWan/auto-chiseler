@@ -38,7 +38,7 @@ jobs:
 
     - name: Build executable with Nuitka
       run: |
-        nuitka main.pyw --standalone --onefile `
+        nuitka main.pyw --standalone --onefile --windows-console-mode=disable `
           --enable-plugin=tk-inter `
           --enable-plugin=pylint-warnings `
           --include-package=ahk `

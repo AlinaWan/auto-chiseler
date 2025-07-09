@@ -30,7 +30,7 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 #### Requirements
 
 * Python 3.x
-* [AutoHotkey](https://www.autohotkey.com/) (must be installed and on your system PATH)
+* [AutoHotkey](https://www.autohotkey.com/) v1.1 (must be installed and on your system PATH)
 * Python packages listed in `requirements.txt`
 
 1. **Clone the repository**

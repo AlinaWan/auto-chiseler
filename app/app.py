@@ -17,6 +17,7 @@ import numpy as np
 from app.capture import ScreenCapture
 from app.config import ENABLE_LOGGING
 from app.constants import RANKS, RANK_ORDER, RANK_TK_HEX
+from app.theme import label_fg, entry_bg, entry_fg, btn_bg, btn_fg
 from app.utils import Tooltip
 from app.processor import ImageProcessor
 
@@ -175,11 +176,6 @@ class PipRerollerApp:
         self.stop_reroll_event = threading.Event() # Event for reroll loop to stop
 
         # --- GUI Elements ---
-        label_fg = "#eeeeee"
-        entry_bg = "#333333"
-        entry_fg = "#ffffff"
-        btn_bg = "#444444"
-        btn_fg = "#dddddd"
         pad_y = 5
 
         def make_label(text):

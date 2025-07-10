@@ -14,6 +14,7 @@ import tkinter as tk
 
 from app.config import SLOTS_SOCKET_PORT
 from app.constants import RANK_TK_HEX
+from app.theme import label_fg, entry_bg, entry_fg, btn_bg, btn_fg
 
 class SlotMachineApp:
     """
@@ -83,17 +84,16 @@ class SlotMachineApp:
         :param root: The root Tkinter window for the GUI.
         :type root: tkinter.Tk
         """
+        self.label_fg = label_fg
+        self.entry_bg = entry_bg
+        self.entry_fg = entry_fg
+        self.btn_bg = btn_bg
+        self.btn_fg = btn_fg
+
         self.root = root
         self.root.configure(bg="#222222")
         self.visible_columns = 4  # default visible columns
         self.slot_labels = []
-
-        # Colors for input styling
-        self.label_fg = "#eeeeee"
-        self.entry_bg = "#333333"
-        self.entry_fg = "#ffffff"
-        self.btn_bg = "#444444"
-        self.btn_fg = "#dddddd"
 
         # Control frame for input + button (hidden by default)
         self.control_frame = tk.Frame(root, bg="#222222")

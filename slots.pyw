@@ -14,7 +14,7 @@ import tkinter as tk
 
 from app.config import SLOTS_SOCKET_PORT
 from app.constants import RANK_TK_HEX
-from app.theme import label_fg, entry_bg, entry_fg, btn_bg, btn_fg
+from app.theme import adjust_color, bg, label_fg, entry_bg, entry_fg, btn_bg, btn_fg
 
 class SlotMachineApp:
     """
@@ -84,48 +84,43 @@ class SlotMachineApp:
         :param root: The root Tkinter window for the GUI.
         :type root: tkinter.Tk
         """
-        self.label_fg = label_fg
-        self.entry_bg = entry_bg
-        self.entry_fg = entry_fg
-        self.btn_bg = btn_bg
-        self.btn_fg = btn_fg
-
         self.root = root
-        self.root.configure(bg="#222222")
+        self.root.configure(bg=bg)
         self.visible_columns = 4  # default visible columns
         self.slot_labels = []
 
         # Control frame for input + button (hidden by default)
-        self.control_frame = tk.Frame(root, bg="#222222")
+        self.control_frame = tk.Frame(root, bg=bg)
         self.control_frame.pack(pady=(10, 0))
         self.control_frame.pack_forget()  # hide initially
 
-        tk.Label(self.control_frame, text="Columns (1-4):", fg=self.label_fg, bg="#222222").pack(side="left")
+        tk.Label(self.control_frame, text="Columns (1-4):", fg=label_fg, bg=bg).pack(side="left")
         self.columns_var = tk.StringVar(value=str(self.visible_columns))
         self.columns_entry = tk.Entry(self.control_frame, textvariable=self.columns_var, width=3,
-                                      bg=self.entry_bg, fg=self.entry_fg, insertbackground=self.entry_fg)
+                                      bg=entry_bg, fg=entry_fg, insertbackground=entry_fg)
         self.columns_entry.pack(side="left", padx=5)
 
         update_btn = tk.Button(self.control_frame, text="Update", command=self.update_columns,
-                               bg=self.btn_bg, fg=self.btn_fg, activebackground="#555555", activeforeground="#ffffff")
+                               bg=btn_bg, fg=btn_fg, activebackground="#555555", activeforeground="#ffffff")
         update_btn.pack(side="left")
 
         # Frame for slots
-        self.slots_frame = tk.Frame(root, bg="#222222")
+        self.slots_frame = tk.Frame(root, bg=bg)
         self.slots_frame.pack(padx=20, pady=40)
 
         # Create all 4 labels but only show some
         for _ in range(4):
             lbl = tk.Label(self.slots_frame, text="", width=5, height=2,
-                           font=("Courier New", 24, "bold"), bg="#000000", fg="#FFFFFF", bd=3, relief="sunken")
+                           font=("Courier New", 24, "bold"), bg=btn_bg, fg=btn_fg, bd=3, relief="sunken")
             lbl.pack(side="left", padx=10)
             self.slot_labels.append(lbl)
 
         self.apply_column_visibility()
 
         # Tiny hint label at bottom
+        hint_fg = adjust_color(label_fg, factor=0.6)
         self.hint_label = tk.Label(root, text="Press C to configure columns",
-                                   fg="#888888", bg="#222222", font=("Arial", 8))
+                                   fg=hint_fg, bg=bg, font=("Arial", 8))
         self.hint_label.pack(side="bottom", pady=4)
 
         # Bind C key press to toggle control frame visibility
@@ -246,11 +241,11 @@ class SlotMachineApp:
                 # Final ranks - only show visible columns
                 for i in range(self.visible_columns):
                     rank = final_ranks[i]
-                    color = RANK_TK_HEX.get(rank, "#444444")
+                    color = RANK_TK_HEX.get(rank, btn_bg)
                     self.slot_labels[i].config(text=rank, fg=color)
                 # Clear hidden labels
                 for i in range(self.visible_columns, 4):
-                    self.slot_labels[i].config(text="", fg="#222222")
+                    self.slot_labels[i].config(text="", fg=label_fg)
                 return
 
             # Spin effect: random ranks on visible columns only
@@ -259,7 +254,7 @@ class SlotMachineApp:
                 self.slot_labels[i].config(text=rand_rank, fg=RANK_TK_HEX[rand_rank])
             # Hide rest during spin
             for i in range(self.visible_columns, 4):
-                self.slot_labels[i].config(text="", fg="#222222")
+                self.slot_labels[i].config(text="", fg=label_fg)
 
             self.root.after(100, _spin_step, frame_count + 1)
 

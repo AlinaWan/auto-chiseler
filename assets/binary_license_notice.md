@@ -22,7 +22,7 @@
 >
 > ### ▸ Licensing of Source Code vs. Binary Distributions
 >
-> The **original source code** for this project is authored and published under the **[MIT License](/LICENSE.txt)**, a permissive license that permits use, modification, and redistribution with minimal obligations, provided attribution and license text are preserved.
+> The **original source code** for this project is authored and published under the **[MIT License](/LICENSE)**, a permissive license that permits use, modification, and redistribution with minimal obligations, provided attribution and license text are preserved.
 >
 > However, it is important to distinguish between:
 >

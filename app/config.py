@@ -2,6 +2,8 @@
 """
 config.py
 """
+THEME = "dark"  # Theme names are listed in theme.py (defaults to dark if invalid)
+
 # [DEBUG] Enable/disable logging
 ENABLE_LOGGING = False  # Set to True to enable logging
 

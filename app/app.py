@@ -17,7 +17,7 @@ import numpy as np
 from app.capture import ScreenCapture
 from app.config import ENABLE_LOGGING
 from app.constants import RANKS, RANK_ORDER, RANK_TK_HEX
-from app.theme import label_fg, entry_bg, entry_fg, btn_bg, btn_fg
+from app.theme import bg, label_fg, entry_bg, entry_fg, btn_bg, btn_fg
 from app.utils import Tooltip
 from app.processor import ImageProcessor
 
@@ -137,7 +137,7 @@ class PipRerollerApp:
         self.root = root
         self.root.title("Pip Reroller by Riri")
         self.root.geometry("440x550") # Increased height for new input field
-        self.root.configure(bg="#222222")
+        self.root.configure(bg=bg)
         self.root.attributes("-topmost", True) # Keep GUI on top
 
         # Configuration variables
@@ -187,10 +187,10 @@ class PipRerollerApp:
             :returns: A Tkinter Label widget configured with preset colors.
             :rtype: tkinter.Label
             """
-            return tk.Label(root, text=text, fg=label_fg, bg="#222222")
+            return tk.Label(root, text=text, fg=label_fg, bg=bg)
 
         # Input fields
-        frame_delay = tk.Frame(root, bg="#222222")
+        frame_delay = tk.Frame(root, bg=bg)
         frame_delay.pack(pady=(10, 0))
         delay_label = make_label("Click Delay (ms):")
         delay_label.pack(in_=frame_delay, side="left")
@@ -200,7 +200,7 @@ class PipRerollerApp:
         self.click_delay_entry.insert(0, str(self.click_delay_ms))
         self.click_delay_entry.bind('<KeyRelease>', self.update_click_delay)
 
-        frame_reroll_delay = tk.Frame(root, bg="#222222")
+        frame_reroll_delay = tk.Frame(root, bg=bg)
         frame_reroll_delay.pack(pady=(10, 0))
         post_reroll_delay_label = make_label("Post Reroll Delay (ms):")
         post_reroll_delay_label.pack(in_=frame_reroll_delay, side="left")
@@ -210,7 +210,7 @@ class PipRerollerApp:
         self.post_reroll_delay_entry.insert(0, str(self.post_reroll_delay_ms))
         self.post_reroll_delay_entry.bind('<KeyRelease>', self.update_post_reroll_delay)
 
-        frame_poll_delay = tk.Frame(root, bg="#222222")
+        frame_poll_delay = tk.Frame(root, bg=bg)
         frame_poll_delay.pack(pady=(10, 0))
         poll_label = make_label("Image Poll Delay (ms):")
         poll_label.pack(in_=frame_poll_delay, side="left")
@@ -220,7 +220,7 @@ class PipRerollerApp:
         self.image_poll_delay_entry.insert(0, str(self.image_poll_delay_ms))
         self.image_poll_delay_entry.bind('<KeyRelease>', self.update_image_poll_delay)
 
-        frame_tol = tk.Frame(root, bg="#222222")
+        frame_tol = tk.Frame(root, bg=bg)
         frame_tol.pack(pady=(10, 0))
         tol_label = make_label("Color Tolerance:")
         tol_label.pack(in_=frame_tol, side="left")
@@ -230,7 +230,7 @@ class PipRerollerApp:
         self.tolerance_entry.insert(0, str(self.tolerance))
         self.tolerance_entry.bind('<KeyRelease>', self.update_tolerance)
 
-        frame_obj_tol = tk.Frame(root, bg="#222222")
+        frame_obj_tol = tk.Frame(root, bg=bg)
         frame_obj_tol.pack(pady=(10, 0))
         obj_tol_label = make_label("Object Tolerance (px):")
         obj_tol_label.pack(in_=frame_obj_tol, side="left")
@@ -240,9 +240,9 @@ class PipRerollerApp:
         self.object_tolerance_entry.insert(0, str(self.object_tolerance))
         self.object_tolerance_entry.bind('<KeyRelease>', self.update_object_tolerance)
 
-        frame_stop = tk.Frame(root, bg="#222222")
+        frame_stop = tk.Frame(root, bg=bg)
         frame_stop.pack(pady=(10, 0))
-        ss_label = tk.Label(frame_stop, text="Minimum SS:", fg=label_fg, bg="#222222")
+        ss_label = tk.Label(frame_stop, text="Minimum SS:", fg=label_fg, bg=bg)
         ss_label.pack(side="left")
         Tooltip(ss_label, "Minimum number of SS-rank pips required to stop rerolling.")
         self.stop_at_entry = Entry(frame_stop, bg=entry_bg, fg=entry_fg, insertbackground='white', width=6)
@@ -250,9 +250,9 @@ class PipRerollerApp:
         self.stop_at_entry.insert(0, str(self.stop_at_ss))
         self.stop_at_entry.bind('<KeyRelease>', self.update_stop_at)
 
-        frame_minobjs = tk.Frame(root, bg="#222222")
+        frame_minobjs = tk.Frame(root, bg=bg)
         frame_minobjs.pack(pady=(13, 0))
-        minobjs_label = Label(frame_minobjs, text="Minimum Objects:", fg=label_fg, bg="#222222")
+        minobjs_label = Label(frame_minobjs, text="Minimum Objects:", fg=label_fg, bg=bg)
         minobjs_label.pack(side="left")
         Tooltip(minobjs_label, "Minimum number of pips (of the selected quality or higher) required to stop rerolling.")
         self.min_objects_entry = Entry(frame_minobjs, bg=entry_bg, fg=entry_fg, insertbackground='white', width=6)
@@ -261,13 +261,13 @@ class PipRerollerApp:
         self.min_objects_entry.bind('<KeyRelease>', self.update_min_objects)
 
         # Minimum Quality row
-        frame_quality = tk.Frame(root, bg="#222222")
+        frame_quality = tk.Frame(root, bg=bg)
         frame_quality.pack(pady=(20, 0))
         min_quality_label = Label(
             frame_quality,
             text="Minimum Quality",
             fg=label_fg,
-            bg="#222222",
+            bg=bg,
             font=("Arial", 12, "bold")
         )
         min_quality_label.pack()
@@ -278,7 +278,7 @@ class PipRerollerApp:
         )
 
         self.quality_buttons = {}
-        frame_buttons = tk.Frame(frame_quality, bg="#222222")
+        frame_buttons = tk.Frame(frame_quality, bg=bg)
         frame_buttons.pack(pady=(5, 0))
         for rank, _, _ in RANKS:
             btn = tk.Button(
@@ -297,28 +297,28 @@ class PipRerollerApp:
             self.quality_buttons[rank] = btn
 
         # Debugging: Rank counts row
-        frame_rank_counts = tk.Frame(root, bg="#222222")
+        frame_rank_counts = tk.Frame(root, bg=bg)
         frame_rank_counts.pack(pady=(10, 0))
         # Top row: labels with rank names
         self.rank_labels = []
         for rank in RANK_TK_HEX:
-            l = tk.Label(frame_rank_counts, text=rank, fg=RANK_TK_HEX[rank], bg="#222222", font=("Arial", 11, "bold"))
+            l = tk.Label(frame_rank_counts, text=rank, fg=RANK_TK_HEX[rank], bg=bg, font=("Arial", 11, "bold"))
             l.pack(side="left", padx=7)
             self.rank_labels.append(l)
         # Bottom row: StringVars with counts per rank
-        frame_rank_counts2 = tk.Frame(root, bg="#222222")
+        frame_rank_counts2 = tk.Frame(root, bg=bg)
         frame_rank_counts2.pack()
         self.rank_count_vars = {}
         self.rank_count_labels = {}
         for rank in RANK_TK_HEX:
             v = StringVar(value="0")
-            l = tk.Label(frame_rank_counts2, textvariable=v, fg=RANK_TK_HEX[rank], bg="#222222", font=("Arial", 11))
+            l = tk.Label(frame_rank_counts2, textvariable=v, fg=RANK_TK_HEX[rank], bg=bg, font=("Arial", 11))
             l.pack(side="left", padx=7)
             self.rank_count_vars[rank] = v
             self.rank_count_labels[rank] = l
 
         # Action Buttons
-        btn_frame = tk.Frame(root, bg="#222222")
+        btn_frame = tk.Frame(root, bg=bg)
         btn_frame.pack(pady=15)
         btn_opts = dict(bg=btn_bg, fg=btn_fg, width=18)
         tk.Button(btn_frame, text="Select Area", command=self.start_area_selection, **btn_opts).grid(row=0, column=0, padx=5, pady=pad_y)
@@ -327,14 +327,14 @@ class PipRerollerApp:
         tk.Button(btn_frame, text="Start Preview", command=self.start_preview, **btn_opts).grid(row=1, column=1, padx=5, pady=pad_y)
 
         self.status_label = tk.Label(root, textvariable=self.status_var, fg=self.status_color,
-                                     bg="#222222", font=("Arial", 12, "bold"))
+                                     bg=bg, font=("Arial", 12, "bold"))
         self.status_label.pack(pady=(10, 0))
 
         self.message_label = tk.Label(root, textvariable=self.message_var,
-                                      fg="#ff6666", bg="#222222", font=("Arial", 10))
+                                      fg="#ff6666", bg=bg, font=("Arial", 10))
         self.message_label.pack()
 
-        hotkey_label = tk.Label(root, text="Toggle Running: F5", fg="#888888", bg="#222222", font=("Arial", 9))
+        hotkey_label = tk.Label(root, text="Toggle Running: F5", fg="#888888", bg=bg, font=("Arial", 9))
         hotkey_label.pack(pady=(10, 5))
 
         # Keyboard listener
@@ -420,7 +420,7 @@ class PipRerollerApp:
 
             self.log_count_label = tk.Label(
                 root, text="Logs ready to dump: 0", 
-                bg="#222222", fg="#ffcc00", font=("Arial", 9, "bold")
+                bg=bg, fg="#ffcc00", font=("Arial", 9, "bold")
             )
             self.log_count_label.place(relx=1.0, y=5, anchor='ne')  # top right
         
@@ -450,7 +450,7 @@ class PipRerollerApp:
             # Show the log button
             self.log_button = tk.Button(
                 root, text="DEBUG: Dump Logs", command=self.dump_logs,
-                bg="#222222", fg="#ffcc00", font=("Arial", 9, "bold")
+                bg=bg, fg="#ffcc00", font=("Arial", 9, "bold")
             )
             self.log_button.place(x=5, y=5)
         else:

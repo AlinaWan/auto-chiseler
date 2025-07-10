@@ -1,4 +1,6 @@
-# Pip Reroller
+<div align="center">
+  <h1>Pip Reroller</h1>
+</div>
 
 [![License][shield-license]][link-license]
 [![GitHub][shield-github]][link-github]

@@ -13,7 +13,7 @@
 >   The embedded Python runtime is licensed under the [Python Software Foundation License, Version 2 (PSFL-2.0)](/assets/python.LICENSE), which is a permissive open-source license allowing redistribution under minimal conditions.
 >
 > * **Python Package Dependencies (pip packages)**
->   The application statically or dynamically links against various third-party Python packages, each governed by its own license (including MIT, BSD, Apache 2.0, GPL, and LGPL). A full inventory of these dependencies and their corresponding licenses is provided in [pip\_dependencies.LICENSE](/assets/pip_dependencies.LICENSE).
+>   The application statically or dynamically links against various third-party Python packages, each governed by its own license. A full inventory of these dependencies and their corresponding licenses is provided in [pip\_dependencies.LICENSE](/assets/pip_dependencies.LICENSE).
 >
 > * **LGPLv3-Licensed Component(s)**
 >   At least one of the included Python dependencies is licensed under the [GNU Lesser General Public License, Version 3 (LGPLv3)](/assets/LGPLv3.LICENSE). While the LGPL permits dynamic linking under less restrictive terms, when combined with GPLv2+ components, the resulting binary distribution is subject to the stricter terms of the GPLv3, due to license compatibility requirements.

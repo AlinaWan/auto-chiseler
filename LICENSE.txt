@@ -1,3 +1,5 @@
+MIT License
+
 Copyright (c) 2025 Riri <https://github.com/AlinaWan>
 Portions Copyright (c) 2025 bobby
 

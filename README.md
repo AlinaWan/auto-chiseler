@@ -222,7 +222,7 @@ Having issues? Here are some common problems and how to fix them:
 
 ## License
 
-Pip Reroller and this repository are licensed under the [MIT License](LICENSE.txt).
+Pip Reroller and this repository are licensed under the [MIT License](LICENSE).
 
 > The pre-compiled binary files under [Releases](https://github.com/AlinaWan/pip-reroller/releases) are licensed under the [GNU GPLv3](/assets/GPLv3.LICENSE). [Learn more](/assets/binary_license_notice.md).
 

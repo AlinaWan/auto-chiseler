@@ -15,7 +15,7 @@ import cv2
 import numpy as np
 
 from app.capture import ScreenCapture
-from app.config import ENABLE_LOGGING
+from app.config import ENABLE_LOGGING, ENABLE_DISCORD_RPC
 from app.constants import RANKS, RANK_ORDER, RANK_TK_HEX
 from app.theme import bg, label_fg, entry_bg, entry_fg, btn_bg, btn_fg
 from app.utils import Tooltip
@@ -174,6 +174,10 @@ class PipRerollerApp:
         self.reroll_loop_thread = None
         self.preview_thread = None
         self.stop_reroll_event = threading.Event() # Event for reroll loop to stop
+
+        if ENABLE_DISCORD_RPC:
+            import app.discord_rpc as discord_rpc
+            discord_rpc.init()
 
         # --- GUI Elements ---
         pad_y = 5
@@ -1138,6 +1142,8 @@ class PipRerollerApp:
 
         :rtype: None
         """
+        ss_count = 0  # Initialize early to avoid UnboundLocalError
+
         while not self.stop_reroll_event.is_set():   
             # Brief pause before the next iteration, to prevent clicking too fast
             # and allow the image processor to catch up if needed
@@ -1207,3 +1213,25 @@ class PipRerollerApp:
                 (f", {ss_count} SS" if self.stop_at_ss > 0 else "") +
                 ". Rolling..."
             ))
+
+            # Update Discord RPC live status
+            if ENABLE_DISCORD_RPC:
+                import app.discord_rpc as discord_rpc
+                discord_rpc.update(
+                    min_quality=self.min_quality,
+                    min_objects=self.min_objects,
+                    ss_count=ss_count,
+                    stop_at_ss=self.stop_at_ss,
+                    rolling=True
+                )
+
+        # Loop exited — update Discord RPC to show stopped
+        if ENABLE_DISCORD_RPC:
+            import app.discord_rpc as discord_rpc
+            discord_rpc.update(
+                min_quality=self.min_quality,
+                min_objects=self.min_objects,
+                ss_count=ss_count,
+                stop_at_ss=self.stop_at_ss,
+                rolling=False
+            )

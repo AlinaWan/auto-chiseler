@@ -1143,6 +1143,9 @@ class PipRerollerApp:
         :rtype: None
         """
         ss_count = 0  # Initialize early to avoid UnboundLocalError
+        discord_rpc = None
+        if ENABLE_DISCORD_RPC:
+            import app.discord_rpc as discord_rpc
 
         while not self.stop_reroll_event.is_set():   
             # Brief pause before the next iteration, to prevent clicking too fast
@@ -1215,8 +1218,7 @@ class PipRerollerApp:
             ))
 
             # Update Discord RPC live status
-            if ENABLE_DISCORD_RPC:
-                import app.discord_rpc as discord_rpc
+            if ENABLE_DISCORD_RPC and discord_rpc:
                 discord_rpc.update(
                     min_quality=self.min_quality,
                     min_objects=self.min_objects,
@@ -1225,9 +1227,11 @@ class PipRerollerApp:
                     rolling=True
                 )
 
+        current_counts = self.image_processor_thread.get_current_rank_counts()
+        ss_count = current_counts.get("SS", 0)
+
         # Loop exited — update Discord RPC to show stopped
-        if ENABLE_DISCORD_RPC:
-            import app.discord_rpc as discord_rpc
+        if ENABLE_DISCORD_RPC and discord_rpc:
             discord_rpc.update(
                 min_quality=self.min_quality,
                 min_objects=self.min_objects,

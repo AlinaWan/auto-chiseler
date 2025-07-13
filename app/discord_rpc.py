@@ -54,6 +54,8 @@ def update(
                 state = "Rolling..."
             else:
                 state = "Stopped"
+                if stop_at_ss > 0:
+                    state += f" | SS: {ss_count}/{stop_at_ss}"
                 if stopped_from_condition:
                     state += " ✅"
 

@@ -47,7 +47,7 @@ Here’s how you can get your changes ready:
 | Tool       | Recommendation                           |
 | ---------- | ---------------------------------------- |
 | OS         | Windows 10/11                            |
-| Python     | 3.x  (compatible with Pip Reroller)      |
+| Python     | 3.13.x                                   |
 | Editor/IDE | VS 2022, VS Code, or any editor you like |
 | Terminal   | PowerShell, CMD, or your favorite shell  |
 
@@ -70,4 +70,4 @@ Here’s how you can get your changes ready:
 
 ## License
 
-By contributing, you agree to keep your code open source under the [MIT License](LICENSE.txt).
+By contributing, you agree to keep your code open source under the [MIT License](LICENSE).

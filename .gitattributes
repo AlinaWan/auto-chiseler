@@ -1,3 +1,11 @@
 * text eol=lf
 .archive/** linguist-detectable=false
+
 *.exe binary
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.webp binary

@@ -175,10 +175,6 @@ class PipRerollerApp:
         self.preview_thread = None
         self.stop_reroll_event = threading.Event() # Event for reroll loop to stop
 
-        if ENABLE_DISCORD_RPC:
-            import app.discord_rpc as discord_rpc
-            discord_rpc.init()
-
         # --- GUI Elements ---
         pad_y = 5
 
@@ -1142,10 +1138,12 @@ class PipRerollerApp:
 
         :rtype: None
         """
-        ss_count = 0  # Initialize early to avoid UnboundLocalError
-        discord_rpc = None
         if ENABLE_DISCORD_RPC:
             import app.discord_rpc as discord_rpc
+            discord_rpc.init()
+
+        ss_count = 0
+        filtered_count = 0
 
         while not self.stop_reroll_event.is_set():   
             # Brief pause before the next iteration, to prevent clicking too fast
@@ -1202,13 +1200,12 @@ class PipRerollerApp:
             # This delay gives the game time to fully update/return the charm slot.
             time.sleep(self.post_reroll_delay_ms / 1000)
 
-            # Update message using the shared rank_counts from the ImageProcessor
             current_counts = self.image_processor_thread.get_current_rank_counts()
-            
-            # Re-calculate filtered and SS counts for the message based on latest data
-            min_rank_idx = RANK_ORDER[self.min_quality]
-            filtered_count = sum(count for rank, count in current_counts.items() if RANK_ORDER[rank] >= min_rank_idx)
             ss_count = current_counts.get("SS", 0)
+            filtered_count = sum(
+                count for rank, count in current_counts.items()
+                if RANK_ORDER[rank] >= min_rank_idx
+            )
 
             # Update message on the main thread
             self.root.after(0, lambda: self.message_var.set(
@@ -1218,7 +1215,7 @@ class PipRerollerApp:
             ))
 
             # Update Discord RPC live status
-            if ENABLE_DISCORD_RPC and discord_rpc:
+            if ENABLE_DISCORD_RPC:
                 discord_rpc.update(
                     min_quality=self.min_quality,
                     min_objects=self.min_objects,
@@ -1230,12 +1227,18 @@ class PipRerollerApp:
         current_counts = self.image_processor_thread.get_current_rank_counts()
         ss_count = current_counts.get("SS", 0)
 
-        # Loop exited — update Discord RPC to show stopped
-        if ENABLE_DISCORD_RPC and discord_rpc:
+        if ENABLE_DISCORD_RPC:
+            # Determine if we stopped due to satisfying a condition
+            stopped_from_condition = (
+                (self.min_objects > 0 and filtered_count >= self.min_objects) or
+                (self.stop_at_ss > 0 and ss_count >= self.stop_at_ss)
+            )
+
             discord_rpc.update(
                 min_quality=self.min_quality,
                 min_objects=self.min_objects,
                 ss_count=ss_count,
                 stop_at_ss=self.stop_at_ss,
-                rolling=False
+                rolling=False,
+                stopped_from_condition=stopped_from_condition
             )

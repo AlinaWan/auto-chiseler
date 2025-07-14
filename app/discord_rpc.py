@@ -53,11 +53,10 @@ def update(
             if rolling:
                 state = "Rolling..."
             else:
-                state = "Stopped"
+                parts = ["Stopped"]
                 if stop_at_ss > 0:
-                    state += f" | SS: {ss_count}/{stop_at_ss}"
-                if stopped_from_condition:
-                    state += " ✅"
+                    parts.append(f"SS: {ss_count}/{stop_at_ss}")
+                state = " | ".join(parts)
 
             _rpc.update(
                 details=details,
@@ -65,12 +64,6 @@ def update(
                 start=_start_time,
                 large_image="rerolling",
                 large_text="Pip Reroller by Riri",
-                buttons=[
-                    {
-                        "label": "View on GitHub",
-                        "url": "https://github.com/AlinaWan/pip-reroller"
-                    }
-                ]
             )
         except Exception as e:
             print("[Discord RPC] Update failed:", e)

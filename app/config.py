@@ -2,8 +2,9 @@
 """
 config.py
 """
-import os
 import configparser
+import os
+import sys
 
 _DEFAULTS = {
     "THEME": "dark",                  # Theme names are listed in theme.py (defaults to dark if invalid)
@@ -18,8 +19,11 @@ globals().update(_DEFAULTS)
 
 # If __compiled__ is set in globals(), use the .ini file for configuration.
 if '__compiled__' in globals():
-    ini_path = os.path.join(os.path.dirname(__file__), 'config.ini')
+    outer_exe = sys.argv[0]
+    ini_path = os.path.join(os.path.dirname(outer_exe), 'config.ini')
     config = configparser.ConfigParser()
+
+    print("Config file resolved to:", ini_path)
 
     # If the .ini file doesn't exist, create it using the defaults.
     if not os.path.exists(ini_path):

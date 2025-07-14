@@ -7,8 +7,8 @@ import configparser
 
 _DEFAULTS = {
     "THEME": "dark",                  # Theme names are listed in theme.py (defaults to dark if invalid)
-    "ENABLE_LOGGING": True,          # Set to True to enable logging
-    "ENABLE_DISCORD_RPC": True,      # Set to True to enable Discord Rich Presence
+    "ENABLE_LOGGING": False,          # Set to True to enable logging
+    "ENABLE_DISCORD_RPC": False,      # Set to True to enable Discord Rich Presence
     "ENABLE_SLOTS_SOCKET": False,     # Set to True to enable slots socket functionality (Required to pass objects to slots.py over IPC)
     "SLOTS_SOCKET_PORT": 54171,       # Port for the slots socket connection
 }

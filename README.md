@@ -222,6 +222,11 @@ Having issues? Here are some common problems and how to fix them:
 
 ---
 
+## End Notes
+Join the [Dig Tool Discord server](https://discord.com/invite/mxE7dzXMGf).
+
+---
+
 ## License
 
 Pip Reroller and this repository are licensed under the [MIT License](LICENSE).

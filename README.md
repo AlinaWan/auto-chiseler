@@ -8,6 +8,7 @@
 [![GitHub Actions][shield-ghactions]][link-ghactions]
 [![Build][shield-build]][link-build]
 [![Python][shield-python]][link-python]
+[![Contributors welcome][shield-contributing]][link-contributing]
 
 ## Overview
 
@@ -252,6 +253,9 @@ Some logic for **selection area handling** and **bounding box preview** was borr
 
 [shield-build]: https://img.shields.io/github/actions/workflow/status/AlinaWan/pip-reroller/build_and_release.yml
 [link-build]: https://github.com/AlinaWan/pip-reroller/actions/workflows/build_and_release.yml
+
+[shield-contributing]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat
+[link-contributing]: /CONTRIBUTING.md
 
 <!--
 [shield-json-validate]: https://img.shields.io/github/actions/workflow/status/AlinaWan/kc-dig-tool-configs/validate_jsons.yml?label=JSON%20Validity

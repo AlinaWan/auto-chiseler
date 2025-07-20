@@ -1,4 +1,4 @@
-name: Build and Release PipReroller
+name: Build and Release AutoChiseler
 
 on:
   workflow_dispatch:
@@ -18,8 +18,8 @@ jobs:
     runs-on: windows-latest
 
     env:
-      OUTPUT_NAME: PipReroller${{ github.event.inputs.tag_name }}.exe
-      RELEASE_NAME: PipReroller Release ${{ github.event.inputs.tag_name }}
+      OUTPUT_NAME: AutoChiseler${{ github.event.inputs.tag_name }}.exe
+      RELEASE_NAME: AutoChiseler Release ${{ github.event.inputs.tag_name }}
 
     steps:
     - name: Checkout code

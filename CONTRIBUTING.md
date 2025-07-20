@@ -1,6 +1,6 @@
-# 🐍 Contributing to Pip Reroller
+# 🐍 Contributing to Auto Chiseler
 
-Thanks for wanting to contribute to **Pip Reroller**! 🎉
+Thanks for wanting to contribute to **Auto Chiseler**! 🎉
 Whether you found a bug, want to add a feature, or improve docs — you’re welcome here.
 
 ---

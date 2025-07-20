@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Pip Reroller</h1>
+  <h1>Auto Chiseler</h1>
 </div>
 
 [![License][shield-license]][link-license]
@@ -12,7 +12,11 @@
 
 ## Overview
 
-Pip Reroller is a Python-based tool designed to automate the rerolling process by detecting object ranks (SS, S, A, etc) on the screen, clicking specified buttons, and stopping when your chosen quality conditions are met. It uses OpenCV for image processing, tkinter for the GUI, and the `ahk` library to simulate mouse clicks via AutoHotkey.
+**Auto Chiseler** (*olim* *Pip Reroller*, intra systema vocatus *PIPRR*) is a Pythonic, image-analytic, event-driven automation apparatus engineered to orchestrate rank-based object detection and iterative interaction within the [*Dig!* Roblox Experience](https://www.roblox.com/games/3233893879/Dig). It harnesses the computational vision faculties of OpenCV, the interface gestalt of tkinter, and the input synthesis capabilities of the `ahk` AutoHotkey binding to achieve precise manipulation of graphical user elements.
+
+This system performs continuous raster interrogation (*interrogatio bitmapica*) over dynamically sampled screen regions, employing spectral and structural classification to discern object ranks (SS, S, A, et cetera). Upon fulfillment of user-configured quality predicates, the execution loop effectuates controlled click emissions and halts operation, thereby optimizing user input cycles during the reroll process.
+
+Also see: [Auto Appraiser](https://github.com/AlinaWan/kc-dig-tool-configs/tree/main/KC-Tool-Suite/auto-appraiser)
 
 ---
 
@@ -20,7 +24,7 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 
 ### Option 1. Use the pre-compiled executable
 
-1. Download the latest executable from the [releases page](https://github.com/AlinaWan/pip-reroller/releases/latest).
+1. Download the latest executable from the [releases page](https://github.com/AlinaWan/auto-chiseler/releases/latest).
 2. Run the executable file. The Python and AutoHotkey interpreters are already bundled; no external installations are required.
 
 > [!IMPORTANT]
@@ -39,7 +43,7 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/AlinaWan/pip-reroller.git
+   git clone https://github.com/AlinaWan/auto-chiseler.git
    cd pip-reroller
    ```
 
@@ -63,7 +67,7 @@ Pip Reroller is a Python-based tool designed to automate the rerolling process b
 
 4. (Optional) If you also want to **compile the executable**, the build command is:
    ```bash
-   nuitka main.pyw --standalone --onefile --windows-console-mode=disable --enable-plugin=tk-inter --enable-plugin=pylint-warnings --include-module=ahk --include-module=jinja2 --include-package=ahk --include-package=jinja2 --include-package-data=ahk --include-package-data=jinja2 --include-package=markupsafe --include-package=cv2 --include-package=pynput --include-package=win32gui --include-package=win32ui --include-package=win32con --include-package=six --windows-icon-from-ico=assets/favicon.ico --include-data-files=assets/AutoHotkey.exe=assets/AutoHotkey.exe --output-filename=PipReroller.exe --output-dir=build --assume-yes-for-downloads
+   nuitka main.pyw --standalone --onefile --windows-console-mode=disable --enable-plugin=tk-inter --enable-plugin=pylint-warnings --include-module=ahk --include-module=jinja2 --include-package=ahk --include-package=jinja2 --include-package-data=ahk --include-package-data=jinja2 --include-package=markupsafe --include-package=cv2 --include-package=pynput --include-package=win32gui --include-package=win32ui --include-package=win32con --include-package=six --windows-icon-from-ico=assets/favicon.ico --include-data-files=assets/AutoHotkey.exe=assets/AutoHotkey.exe --output-filename=AutoChiseler.exe --output-dir=build --assume-yes-for-downloads
    ```
 
 ---
@@ -232,14 +236,14 @@ Join the [Dig Tool Discord server](https://discord.com/invite/mxE7dzXMGf).
 
 Pip Reroller and this repository are licensed under the [MIT License](LICENSE).
 
-> The pre-compiled binary files under [Releases](https://github.com/AlinaWan/pip-reroller/releases) are licensed under the [GNU GPLv3](/assets/GPLv3.LICENSE). [Learn more](/assets/binary_license_notice.md).
+> The pre-compiled binary files under [Releases](https://github.com/AlinaWan/auto-chiseler/releases) are licensed under the [GNU GPLv3](/assets/GPLv3.LICENSE). [Learn more](/assets/binary_license_notice.md).
 
 ## Credits
 
 Some logic for **selection area handling** and **bounding box preview** was borrowed and adapted from [iamnotbobby](https://github.com/iamnotbobby), also under the MIT License.
 
 <!-- Badge Variables -->
-[shield-license]: https://img.shields.io/github/license/AlinaWan/pip-reroller
+[shield-license]: https://img.shields.io/github/license/AlinaWan/auto-chiseler
 [link-license]: LICENSE
 
 [shield-github]: https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white
@@ -251,8 +255,8 @@ Some logic for **selection area handling** and **bounding box preview** was borr
 [shield-ghactions]: https://img.shields.io/badge/GitHub_Actions-2088FF?logo=github-actions&logoColor=white
 [link-ghactions]: https://docs.github.com/en/actions
 
-[shield-build]: https://img.shields.io/github/actions/workflow/status/AlinaWan/pip-reroller/build_and_release.yml
-[link-build]: https://github.com/AlinaWan/pip-reroller/actions/workflows/build_and_release.yml
+[shield-build]: https://img.shields.io/github/actions/workflow/status/AlinaWan/auto-chiseler/build_and_release.yml
+[link-build]: https://github.com/AlinaWan/auto-chiseler/actions/workflows/build_and_release.yml
 
 [shield-contributing]: https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat
 [link-contributing]: /CONTRIBUTING.md

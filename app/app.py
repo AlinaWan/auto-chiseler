@@ -135,7 +135,7 @@ class PipRerollerApp:
         :rtype: None
         """
         self.root = root
-        self.root.title("Pip Reroller by Riri")
+        self.root.title("Auto Chiseler by Riri")
         self.root.geometry("440x550") # Increased height for new input field
         self.root.configure(bg=bg)
         self.root.attributes("-topmost", True) # Keep GUI on top
@@ -411,7 +411,7 @@ class PipRerollerApp:
                 if not self.log_buffer:
                     self.message_var.set("No logs to write.")
                     return
-                filename = f"pip_reroller_log_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+                filename = f"auto_chiseler_log_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
                 with open(filename, "w", encoding="utf-8") as f:
                     for line in self.log_buffer:
                         f.write(line + "\n")

@@ -1,5 +1,5 @@
 name: "🐞 Bug Report"
-description: "File a bug or issue for Pip Reroller"
+description: "File a bug or issue for Auto Chiseler"
 title: "[BUG] <title>"
 labels: ["Bug", "Needs Triage"]
 assignees: []
@@ -18,7 +18,7 @@ body:
       label: "Steps to Reproduce"
       description: "List the steps to reproduce the bug"
       placeholder: |
-        1. Open Pip Reroller
+        1. Open Auto Chiseler
         2. Select the reroll option
         3. Wait until the 5th roll
         4. Observe crash

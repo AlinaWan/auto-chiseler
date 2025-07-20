@@ -228,7 +228,8 @@ Having issues? Here are some common problems and how to fix them:
 ---
 
 ## End Notes
-Join the [Dig Tool Discord server](https://discord.com/invite/mxE7dzXMGf).
+Join the [Dig Tool Discord server](https://discord.com/invite/mxE7dzXMGf).  
+The former repository [https://github.com/AlinaWan/pip-reroller](https://github.com/AlinaWan/pip-reroller) now redirects here. Please update your bookmarks and references accordingly.
 
 ---
 

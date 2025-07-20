@@ -12,7 +12,7 @@
 
 ## Overview
 
-**Auto Chiseler** (*olim* *Pip Reroller*, intra systema vocatus *PIPRR*) is a Pythonic, image-analytic, event-driven automation apparatus engineered to orchestrate rank-based object detection and iterative interaction within the [*Dig!* Roblox Experience](https://www.roblox.com/games/3233893879/Dig). It harnesses the computational vision faculties of OpenCV, the interface gestalt of tkinter, and the input synthesis capabilities of the `ahk` AutoHotkey binding to achieve precise manipulation of graphical user elements.
+**Auto Chiseler** (*olim* *Pip Reroller*, intra systema vocatus *PIPRR*) is a Pythonic, image-analytic, event-driven automation apparatus engineered to orchestrate rank-based object detection and iterative interaction within the [*Dig!* Roblox Experience](https://www.roblox.com/games/126244816328678). It harnesses the computational vision faculties of OpenCV, the interface gestalt of tkinter, and the input synthesis capabilities of the `ahk` AutoHotkey binding to achieve precise manipulation of graphical user elements.
 
 This system performs continuous raster interrogation (*interrogatio bitmapica*) over dynamically sampled screen regions, employing spectral and structural classification to discern object ranks (SS, S, A, et cetera). Upon fulfillment of user-configured quality predicates, the execution loop effectuates controlled click emissions and halts operation, thereby optimizing user input cycles during the reroll process.
 

@@ -16,7 +16,7 @@
 
 This system performs continuous raster interrogation (*interrogatio bitmapica*) over dynamically sampled screen regions, employing spectral and structural classification to discern object ranks (SS, S, A, et cetera). Upon fulfillment of user-configured quality predicates, the execution loop effectuates controlled click emissions and halts operation, thereby optimizing user input cycles during the reroll process.
 
-See also: [Auto Appraiser](https://github.com/AlinaWan/kc-dig-tool-configs/tree/main/KC-Tool-Suite/auto-appraiser)
+See also: [Auto Appraiser](https://github.com/AlinaWan/kc-dig-tool-configs/tree/main/KC-Tool-Suite/auto-appraiser) and [Auto Enchanter](https://github.com/AlinaWan/kc-dig-tool-configs/tree/main/KC-Tool-Suite/auto-enchanter)
 
 ---
 

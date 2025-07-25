@@ -44,7 +44,7 @@ See also: [Auto Appraiser](https://github.com/AlinaWan/kc-dig-tool-configs/tree/
 
    ```bash
    git clone https://github.com/AlinaWan/auto-chiseler.git
-   cd pip-reroller
+   cd auto-chiseler
    ```
 
 2. **Install dependencies**

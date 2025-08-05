@@ -27,9 +27,15 @@ See also: [Auto Appraiser](https://github.com/AlinaWan/kc-dig-tool-configs/tree/
 1. Download the latest executable from the [releases page](https://github.com/AlinaWan/auto-chiseler/releases/latest).
 2. Run the executable file. The Python and AutoHotkey interpreters are already bundled; no external installations are required.
 
-> [!IMPORTANT]
-> If Windows Defender quarantines or deletes the file, restore it or temporarily turn off real-time protection in your system settings.
-> This issue is a **false positive**. The macro does not contain any malicious code.
+> [!WARNING]  
+> If Windows Defender deletes or blocks the executable file, follow these steps:
+> * Press <kbd>Win</kbd> + <kbd>R</kbd> to open the **Run** dialog.
+> * Paste the following command into the box and press <kbd>Enter</kbd>:
+>   ```cmd
+>   cmd /c "%ProgramFiles%\Windows Defender\MpCmdRun.exe" -SignatureUpdate
+>   ```
+>
+> This will update Defender's virus definitions. After it's done, try downloading the macro again.
 
 ### Option 2. Run from source
 
@@ -135,7 +141,7 @@ See also: [Auto Appraiser](https://github.com/AlinaWan/kc-dig-tool-configs/tree/
 
 ## Stopping Logic: Condition Hierarchy
 
-Pip Reroller will only stop rerolling when **both** of the following conditions are met:
+Auto Chiseler will only stop rerolling when **both** of the following conditions are met:
 
 1. **Minimum Objects:** At least the specified number of pips (`Minimum Objects`) are detected that are >= your chosen `Minimum Quality`.
 2. **Minimum SS:** At least the specified number of pips are detected that are of the **SS** rank.
@@ -235,7 +241,7 @@ The former repository [https://github.com/AlinaWan/pip-reroller](https://github.
 
 ## License
 
-Pip Reroller and this repository are licensed under the [MIT License](LICENSE).
+Auto Chiseler and this repository are licensed under the [MIT License](LICENSE).
 
 > The pre-compiled binary files under [Releases](https://github.com/AlinaWan/auto-chiseler/releases) are licensed under the [GNU GPLv3](/assets/GPLv3.LICENSE). [Learn more](/assets/binary_license_notice.md).
 

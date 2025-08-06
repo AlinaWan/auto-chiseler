@@ -136,7 +136,7 @@ class PipRerollerApp:
         """
         self.root = root
         self.root.title("Auto Chiseler by Riri")
-        self.root.geometry("440x550") # Increased height for new input field
+        self.root.geometry("440x600") # Increased height for new input field
         self.root.configure(bg=bg)
         self.root.attributes("-topmost", True) # Keep GUI on top
 
@@ -153,10 +153,14 @@ class PipRerollerApp:
         self.post_reroll_delay_ms = 500
         self.object_tolerance = 10
         self.image_poll_delay_ms = 10 # How often the image processor polls
+        self.stop_confirm_delay_ms = 50 # Delay before confirming stop conditions
 
         self.min_quality = "F"
         self.min_objects = 1
         self.game_window_title = StringVar(value="Roblox")
+
+        self.processor = ImageProcessor(self)
+        self.processor.delay_ms = self.stop_confirm_delay_ms
 
         # GUI state variables
         self.rank_counts = {rank: 0 for rank, _, _ in RANKS} # Updated by ImageProcessor via GUI callback
@@ -259,6 +263,21 @@ class PipRerollerApp:
         self.min_objects_entry.pack(side="left", padx=(10,0))
         self.min_objects_entry.insert(0, str(self.min_objects))
         self.min_objects_entry.bind('<KeyRelease>', self.update_min_objects)
+
+        frame_stop_delay = tk.Frame(root, bg=bg)
+        frame_stop_delay.pack(pady=(10, 0))
+        delay_confirm_label = tk.Label(frame_stop_delay, text="Stop Confirm Delay (ms):", fg=label_fg, bg=bg)
+        delay_confirm_label.pack(side="left")
+        Tooltip(delay_confirm_label, 
+                "How long to wait before confirming stop conditions.\n"
+                "Helps avoid false stops caused by the game showing the item below\n"
+                "while it's still returning the item you actually rerolled.\n"
+                "Increase this if the game takes too long to finish returning charms."
+        )
+        self.stop_confirm_delay_entry = Entry(frame_stop_delay, bg=entry_bg, fg=entry_fg, insertbackground='white', width=6)
+        self.stop_confirm_delay_entry.pack(side="left", padx=5)
+        self.stop_confirm_delay_entry.insert(0, str(self.stop_confirm_delay_ms))
+        self.stop_confirm_delay_entry.bind('<KeyRelease>', self.update_stop_confirm_delay)
 
         # Minimum Quality row
         frame_quality = tk.Frame(root, bg=bg)
@@ -618,6 +637,15 @@ class PipRerollerApp:
             val = int(self.object_tolerance_entry.get())
             if val >= 0:
                 self.object_tolerance = val
+        except ValueError:
+            pass
+
+    def update_stop_confirm_delay(self, event=None):
+        try:
+            val = int(self.stop_confirm_delay_entry.get())
+            self.stop_confirm_delay_ms = val
+            if hasattr(self, "processor") and self.processor:
+                self.processor.delay_ms = val
         except ValueError:
             pass
 

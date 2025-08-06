@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 processor.py
 """
@@ -50,7 +50,6 @@ class ImageProcessor(threading.Thread):
         self.screen_capturer = ScreenCapture() # Instantiate the optimized screen capturer
 
         self.pending_stop = None  # Stores a tuple (timestamp, detected_objs) or None
-        self.delay_ms = 50  # Delay in ms before confirming stop
 
         self.ipc_host = None
         self.ipc_port = None
@@ -61,6 +60,16 @@ class ImageProcessor(threading.Thread):
             ipc_port = SLOTS_SOCKET_PORT
             self.ipc_host = ipc_host
             self.ipc_port = ipc_port
+
+    @property
+    def delay_ms(self):
+        # Always get the current delay from the app
+        return self.app.stop_confirm_delay_ms
+
+    @delay_ms.setter
+    def delay_ms(self, value):
+        # Update the app’s delay value when set here
+        self.app.stop_confirm_delay_ms = value
 
     def run(self):
         """
@@ -83,7 +92,7 @@ class ImageProcessor(threading.Thread):
         :rtype: None
         """
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-        
+
         while not self.stop_event.is_set():
             if self.app.game_area is None:
                 time.sleep(0.1) # Wait if area not set by user
@@ -112,7 +121,7 @@ class ImageProcessor(threading.Thread):
                     for obj in detected_objs:
                         new_counts[obj['rank']] += 1
                     self.current_rank_counts = new_counts
-                    
+
                 # Schedule GUI update on the main thread (Tkinter is not thread-safe)
                 self.app.root.after(0, lambda: self.app.update_rank_counts_gui(detected_objs))
 
@@ -130,72 +139,60 @@ class ImageProcessor(threading.Thread):
                         should_stop = True
 
                 # If conditions are met AND the main loop is currently running, signal it to stop
-                now = time.time()
-                
-                # Check if a stop condition is freshly detected
-                if should_stop and self.pending_stop is None:
-                    self.pending_stop = (now, detected_objs)
-                
-                # If a stop is pending, and delay has passed, re-evaluate
-                if self.pending_stop:
-                    initial_time, initial_objs = self.pending_stop
-                    if now - initial_time >= self.delay_ms / 1000:
-                        # Re-capture and re-check conditions
-                        frame = self.screen_capturer.capture(bbox=self.app.game_area)
-                        recheck_objs = self.app.detect_and_classify(frame)
-                
-                        # Evaluate stop conditions again
-                        min_rank_idx = RANK_ORDER[self.app.min_quality]
-                        filtered_objs = [obj for obj in recheck_objs if RANK_ORDER[obj['rank']] >= min_rank_idx]
-                        ss_objs = [obj for obj in recheck_objs if obj['rank'] == "SS"]
-                
-                        still_should_stop = False
-                        if self.app.stop_at_ss > 0:
-                            if len(filtered_objs) >= self.app.min_objects and len(ss_objs) >= self.app.stop_at_ss:
-                                still_should_stop = True
-                        else:
-                            if len(filtered_objs) >= self.app.min_objects:
-                                still_should_stop = True
-                
-                        if still_should_stop and self.app.running:
-                            if ENABLE_LOGGING and recheck_objs:
-                                self.app.log_event(
-                                    recheck_objs,
-                                    self.current_rank_counts.copy(),
-                                    {
-                                        "min_quality": self.app.min_quality,
-                                        "min_objects": self.app.min_objects,
-                                        "stop_at_ss": self.app.stop_at_ss,
-                                        "tolerance": self.app.tolerance,
-                                        "object_tolerance": self.app.object_tolerance,
-                                        "click_delay_ms": self.app.click_delay_ms,
-                                        "post_reroll_delay_ms": self.app.post_reroll_delay_ms,
-                                        "image_poll_delay_ms": self.app.image_poll_delay_ms,
-                                        "game_area": self.app.game_area,
-                                        "chisel_button_pos": self.app.chisel_button_pos,
-                                        "buy_button_pos": self.app.buy_button_pos,
-                                    },
-                                    decision="StopConditionMetAfterDelay: Confirmed stop after delay"
-                                )
-                            self.app.root.after(0, lambda: self.app.message_var.set(
-                                f"Confirmed after {self.delay_ms}ms: Min {self.app.min_quality} x{self.app.min_objects}" +
-                                (f", SS: {self.app.stop_at_ss}" if self.app.stop_at_ss > 0 else "") +
-                                " met. Signalling stop."
-                            ))
-                            self.app.stop_running_async()
-                            self.stop_event.set()
-                            break
-                        else:
-                            # Condition no longer valid � cancel pending stop
-                            self.pending_stop = None
+                current_time = time.time()
 
-                # Small delay to control the image polling rate
+                # Check if a stop condition is freshly detected
+                if should_stop:
+                    # If a stop is pending, and delay has passed, re-evaluate
+                    if self.pending_stop is None:
+                        # Start pending stop timer
+                        self.pending_stop = (current_time, detected_objs)
+                        self.app.root.after(0, lambda: self.app.message_var.set(f"Detected stop condition, confirming in {self.delay_ms} ms..."))
+                    else:
+                        # Check if delay passed
+                        timestamp, _ = self.pending_stop
+                        elapsed_ms = (current_time - timestamp) * 1000
+                        if elapsed_ms >= self.delay_ms:
+                            # Confirmed stop condition stable, signal stop
+                            if self.app.running:
+                                if ENABLE_LOGGING and detected_objs:
+                                    self.app.log_event(
+                                        detected_objs,
+                                        self.current_rank_counts.copy(),
+                                        {
+                                            "min_quality": self.app.min_quality,
+                                            "min_objects": self.app.min_objects,
+                                            "stop_at_ss": self.app.stop_at_ss,
+                                            "tolerance": self.app.tolerance,
+                                            "object_tolerance": self.app.object_tolerance,
+                                            "click_delay_ms": self.app.click_delay_ms,
+                                            "post_reroll_delay_ms": self.app.post_reroll_delay_ms,
+                                            "image_poll_delay_ms": self.app.image_poll_delay_ms,
+                                            "game_area": self.app.game_area,
+                                            "chisel_button_pos": self.app.chisel_button_pos,
+                                            "buy_button_pos": self.app.buy_button_pos,
+                                        },
+                                        decision="StopConditionMet: Signalling reroll thread to suspend"
+                                    )
+                                self.app.root.after(0, lambda: self.app.message_var.set(
+                                    f"Min: {self.app.min_quality} x{self.app.min_objects}" +
+                                    (f", SS: {self.app.stop_at_ss}" if self.app.stop_at_ss > 0 else "") +
+                                    " met. Signalling stop."
+                                ))
+                                self.app.stop_running_async()
+                                self.stop_event.set()
+                                break
+                else:
+                    # Condition no longer met, cancel pending stop
+                    if self.pending_stop is not None:
+                        self.pending_stop = None
+                        self.app.root.after(0, lambda: self.app.message_var.set("Stop condition lost, continuing..."))
+
                 time.sleep(self.app.image_poll_delay_ms / 1000)
 
             except Exception as e:
-                # Log errors and prevent tight looping on continuous errors
                 self.app.root.after(0, lambda: self.app.message_var.set(f"ImageProc Error: {e}"))
-                time.sleep(0.5) # Prevent tight loop on error
+                time.sleep(0.5)
 
     def get_current_rank_counts(self):
         """

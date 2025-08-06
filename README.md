@@ -103,7 +103,8 @@ See also: [Auto Appraiser](https://github.com/AlinaWan/kc-dig-tool-configs/tree/
    * **Minimum SS:** The minimum number of **SS** ranks required to stop rerolling. For example, if set to **1**, the tool stops when at least one SS is found.
    * **Minimum Objects:** The minimum number of detected objects of at least the chosen minimum quality required to stop.
    * **Minimum Quality:** Select the lowest rank (F, D, C, B, A, S, SS) you accept for stopping. Only pips **at least this rank** or higher are counted toward the minimum objects condition.
-  
+   * **Stop Confirm Delay (ms):** How long to wait before confirming stop conditions after they first appear. This helps avoid false stops caused by the game temporarily showing the item below the one you actually rerolled while it’s still returning. Increase this value if the game takes longer to finalize item returns. Setting this to 0 means the tool will confirm stops immediately without waiting.
+
 > [!NOTE]
 > This tool does not evaluate stat values themselves. It only detects each pip's visual rank based on color.
 
@@ -211,7 +212,7 @@ Suppose:
 Having issues? Here are some common problems and how to fix them:
 
 * **Wrong stats being detected (e.g. detecting bottom charm's stats):**
-  This usually means your ping is too high. After a reroll, the game takes longer to return the new charm, and the tool may detect the charm below it instead.
+  This usually means the delay before confirming stop conditions is too low. After a reroll, the game takes longer to return the new charm, and the tool may detect the charm below it instead. Try increasing the **Stop Confirm Delay** value to give the game more time to finish returning the correct charm.
 
 * **Charm gets deleted or rerolled unintentionally:**
   Another ping-related issue. Try increasing the **Post Reroll Delay** in the app settings to give the game more time to refresh the inventory before the next action is taken.
